@@ -35,7 +35,7 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	if (Auth::guest()) return Redirect::guest('/');
+	if (Auth::guest()) return App::abort(404);
 });
 
 Route::filter('login', function()
@@ -46,6 +46,15 @@ Route::filter('login', function()
 Route::filter('auth.basic', function()
 {
 	return Auth::basic();
+});
+
+/*
+Permission filters:
+*/
+
+Route::filter('admin_panel', function()
+{
+	if (!Allow::to('admin_panel')) return App::abort(404);
 });
 
 /*

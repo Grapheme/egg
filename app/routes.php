@@ -22,7 +22,7 @@ Route::group(array('prefix' => $locale), function()
 	Route::post('login', array('as' => 'login', 'uses' => 'HomeController@login'));
 	Route::get('logout', 'HomeController@logout');
 
-	Route::group(array('before' => 'auth', 'prefix' => 'admin'), function()
+	Route::group(array('before' => 'admin_panel', 'prefix' => 'admin'), function()
 	{
 	    Route::get('/', 'AdminController@mainPage');
 
