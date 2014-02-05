@@ -19,9 +19,9 @@ class HomeController extends BaseController {
 	{
 		//$firstTime = microtime(true);
 		if($url == null) {
-			echo sPage::show('index');
+			echo spage::show('index');
 		} else {
-			echo sPage::show($url);
+			echo spage::show($url);
 		}
 		//echo slink::to('public/admin-template/index.html');
 		//echo microtime(true) - $firstTime;

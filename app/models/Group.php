@@ -1,6 +1,6 @@
 <?php
 
-class Group extends Eloquent {
+class group extends Eloquent {
 	protected $guarded = array();
 
 	public static $rules = array(

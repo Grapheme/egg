@@ -26,4 +26,9 @@ class slink {
 			return asset($link);
 		}
 	}
+
+	public static function segment($n)
+	{
+		return Request::segment($n);
+	}
 }

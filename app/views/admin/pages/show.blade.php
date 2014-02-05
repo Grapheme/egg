@@ -1,6 +1,6 @@
-@extends('layouts.scaffold')
+@extends('layouts.admin.index')
 
-@section('main')
+@section('content')
 
 <h1>Show Page</h1>
 

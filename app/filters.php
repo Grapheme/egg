@@ -54,7 +54,14 @@ Permission filters:
 
 Route::filter('admin_panel', function()
 {
-	if (!Allow::to('admin_panel')) return App::abort(404);
+	if (!allow::to('admin_panel') && Auth::check()) {
+		return "access denied!"; exit;
+	}
+	if (!allow::to('admin_panel'))
+	{
+		return App::abort(404);
+		exit;
+	}
 });
 
 /*

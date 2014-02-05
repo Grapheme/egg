@@ -38,5 +38,11 @@ Route::group(array('prefix' => $locale), function()
 
 App::missing(function($exception)
 {
-    return sPage::show('404');
+	if(slink::segment(1) == 'admin' && allow::to('admin_panel'))
+	{
+		return View::make('admin.error404');
+		exit;
+	} else {
+		return spage::show('404');
+	}
 });

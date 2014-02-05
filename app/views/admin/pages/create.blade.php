@@ -1,6 +1,12 @@
-@extends('layouts.scaffold')
+@extends('layouts.admin.index')
 
-@section('main')
+@section('plugins')
+    
+    <script src="<?=URL::to('public/admin_template/js/plugin/ckeditor/ckeditor.js')?>"></script>
+
+@stop
+
+@section('content')
 
 <h1>Create Page</h1>
 
@@ -33,7 +39,7 @@
 
         <li>
             {{ Form::label('content_en', 'Content_en:') }}
-            {{ Form::text('content_en') }}
+            {{ Form::textarea('content_en', null, array('class' => 'ckeditor')) }}
         </li>
 
 		<li>
