@@ -20,7 +20,7 @@ class UserTableSeeder extends Seeder
 		));
 
 		DB::table('groups')->delete();
-		Group::create(array(
+		group::create(array(
 			'id' => 1,
 			'name' => 'admin',
 			'desc' => 'Administrators',
