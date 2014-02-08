@@ -95,7 +95,7 @@
 
 <h1>Create Page</h1>
 
-<form class="smart-form ajax-form" action="<?=URL::to('ajax/page/create')?>" method="post" id="edit-from">
+<form class="smart-form ajax-form" action="<?=URL::to('admin/ajax/page/create')?>" method="post" id="edit-from">
     <section>
         <label class="label">Name</label>
         <label class="input">

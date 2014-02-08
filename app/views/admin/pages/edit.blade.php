@@ -135,7 +135,7 @@
 	</ul>
 {{ Form::close() }}
 -->
-<form class="smart-form ajax-form" action="<?=URL::to('ajax/page/update/'.$page->id)?>" method="post" id="edit-from">
+<form class="smart-form ajax-form" action="<?=URL::to('admin/ajax/page/update/'.$page->id)?>" method="post" id="edit-from">
     <input class="input-lg" type="hidden" name="id" value="<?=$page->id?>">
     <section>
         <label class="label">Name</label>
