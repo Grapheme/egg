@@ -5,7 +5,7 @@ class sPage {
 	public static function show($url)
 	{
 
-		$page = Page::where('url', $url)->first();
+		$page = Page::where('url', $url)->firstOrFail();
 		if($page == null) {
 			App::abort(404);
 			exit;

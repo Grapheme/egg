@@ -1,10 +1,35 @@
 @extends('layouts.admin.index')
 
+@section('plugins')
+
+<script>
+	$(".btn-danger").click(function(e) {
+		var $form = $(this).parent();
+				$.SmartMessageBox({
+					title : "Deleting page!",
+					content : "You're going to delete this page?",
+					buttons : '[No][Yes]'
+				}, function(ButtonPressed) {
+					if (ButtonPressed === "Yes") {
+						$form.submit();
+					}
+					if (ButtonPressed === "No") {
+						return false;
+					}
+		
+				});
+				e.preventDefault();
+			})
+
+</script>
+
+@stop
+
 @section('content')
 
-<h1>All Pages</h1>
-
-<p>{{ link_to_route('admin.pages.create', 'Add new page') }}</p>
+<div style="margin-bottom: 25px;">
+	<a class="btn btn-primary" href="<?=slink::to('admin/pages/create')?>">Add new page</a>
+</div>
 
 @if ($pages->count())
 	<table class="table table-striped table-bordered">
@@ -13,9 +38,6 @@
 				<th>Name</th>
 				<th>Url</th>
 				<th>Title_en</th>
-				<th>Description_en</th>
-				<th>Keywords_en</th>
-				<th>Content_en</th>
 			</tr>
 		</thead>
 
@@ -25,9 +47,6 @@
 					<td>{{{ $page->name }}}</td>
 					<td>{{{ $page->url }}}</td>
 					<td>{{{ $page->title_en }}}</td>
-					<td>{{{ $page->description_en }}}</td>
-					<td>{{{ $page->keywords_en }}}</td>
-					<td>{{{ $page->content_en }}}</td>
                     <td>{{ link_to_route('admin.pages.edit', 'Edit', array($page->id), array('class' => 'btn btn-info')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('admin.pages.destroy', $page->id))) }}

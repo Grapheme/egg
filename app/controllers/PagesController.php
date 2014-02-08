@@ -44,19 +44,26 @@ class PagesController extends BaseController {
 	public function store()
 	{
 		$input = Input::all();
-		$validation = Validator::make($input, Page::$rules);
+		$messages = array(
+		    'required' => ':attribute',
+		);
+		$validation = Validator::make($input, Page::$rules, $messages);
 
 		if ($validation->passes())
 		{
 			$this->page->create($input);
+			
+			//return Redirect::route('admin.pages.index');
 
-			return Redirect::route('admin.pages.index');
+			echo json_encode(array('success' => true));
+		} else {
+			echo json_encode(array('success' => false, 'errors' => $validation->getMessageBag()->toArray()));
 		}
 
-		return Redirect::route('admin.pages.create')
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
+		// return Redirect::route('admin.pages.create')
+		// 	->withInput()
+		// 	->withErrors($validation)
+		// 	->with('message', 'There were validation errors.');
 	}
 
 	/**
@@ -99,20 +106,29 @@ class PagesController extends BaseController {
 	public function update($id)
 	{
 		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, Page::$rules);
+		$messages = array(
+		    'required' => ':attribute',
+		);
+		$validation = Validator::make($input, Page::$rules, $messages);
 
 		if ($validation->passes())
 		{
 			$page = $this->page->find($id);
 			$page->update($input);
 
-			return Redirect::route('admin.pages.show', $id);
+			//return Redirect::route('admin.pages.show', $id);
+
+			echo json_encode(array('success' => true));
+		} else {
+			echo json_encode(array('success' => false, 'errors' => $validation->getMessageBag()->toArray()));
 		}
 
-		return Redirect::route('admin.pages.edit', $id)
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
+		
+
+		// return Redirect::route('admin.pages.edit', $id)
+		// 	->withInput()
+		// 	->withErrors($validation)
+		// 	->with('message', 'There were validation errors.');
 	}
 
 	/**

@@ -27,6 +27,15 @@ Route::group(array('prefix' => $locale), function()
 	    Route::get('/', 'AdminController@mainPage');
 
 	    Route::resource('pages', 'PagesController');
+	    Route::get('users', 'UsersController@index');
+	    Route::get('languages', 'LangController@index');
+
+	    /*	
+		AJAX routing
+		*/
+
+		Route::post('ajax/page/update/{id}', 'PagesController@update');
+		Route::post('ajax/page/create', 'PagesController@store');
 	});
 
 	//Route::resource('groups', 'GroupsController');
@@ -43,6 +52,6 @@ App::missing(function($exception)
 		return View::make('admin.error404');
 		exit;
 	} else {
-		return spage::show('404');
+		//return spage::show('404');
 	}
 });
