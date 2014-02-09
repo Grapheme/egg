@@ -12,18 +12,22 @@ class sPage {
 		}
 		$content_lang = 'content_'.Config::get('app.locale');
 		$text = $page->$content_lang;
-		preg_match_all("/{_(.*?)_}/ime", $text, $reg);
+		preg_match_all('/\[view=(.*?)\]/', $text, $reg);
+
 		if(!empty($reg[0]))
 		{
 			foreach($reg[1] as $reged)
 			{
-				$reg_view[] = View::make($reged);
+				if (View::exists($reged))
+				{
+					$reg_view[] = View::make($reged);
+				} else {
+					$reg_view[] = "(".$reged." not found)";
+				}
 			}
-			$newphrase = str_replace($reg[0], $reg_view, $text);
-			return $newphrase;
-		} else {
-			return $text;
+			$text = str_replace($reg[0], $reg_view, $text);
 		}
 
+		return $text;
 	}
 }
