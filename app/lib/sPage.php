@@ -12,21 +12,31 @@ class sPage {
 		}
 		$content_lang = 'content_'.Config::get('app.locale');
 		$text = $page->$content_lang;
-		preg_match_all('/\[view=(.*?)\]/', $text, $reg);
+		preg_match_all('/\[(.*?)=(.*?)\]/', $text, $reg);
 
 		if(!empty($reg[0]))
 		{
-			foreach($reg[1] as $reged)
-			{
-				if (View::exists($reged))
-				{
-					$reg_view[] = View::make($reged);
-				} else {
-					$reg_view[] = "(".$reged." not found)";
+			for($i = 0; $i < count($reg[0]); $i++)
+			{	
+				switch ($reg[1][$i]) {
+				    case "view":
+				        if (View::exists($reg[2][$i]))
+						{
+							$reg_view[] = View::make($reg[2][$i]);
+						} else {
+							$reg_view[] = "(".$reg[2][$i]." not found)";
+						}
+				        break;
+				    	
+			    	case "gallery":
+				        $reg_view[] = "Галлерея маза фака";
+				        break;
 				}
 			}
 			$text = str_replace($reg[0], $reg_view, $text);
 		}
+
+
 
 		return $text;
 	}

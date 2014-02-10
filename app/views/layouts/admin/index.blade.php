@@ -180,20 +180,36 @@
         Please note that these links work a bit different than
         traditional hre="" links. See documentation for details.
         -->
+        <?php
+
+        $options = array(
+          '' => array('Dashboard', 'fa-home'),
+          'pages' => array('Pages', 'fa-list-alt'),
+          'languages' => array('Languages', 'fa-pencil-square-o'),
+          'users' => array('Users', 'fa-windows'),
+          'galleries' => array('Galleries', 'fa-picture-o'),
+
+          );
+
+        ?>
 
         <ul>
-          <li <?php if(slink::segment(2) == '') echo "class=\"active\"";?> >
-            <a href="<?=URL::to('admin')?>" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
-          </li>
-          <li <?php if(slink::segment(2) == 'pages') echo "class=\"active\"";?>>
-            <a href="<?=URL::to('admin/pages')?>" title="Pages"><i class="fa fa-lg fa-fw fa-list-alt"></i> <span class="menu-item-parent">Pages</span></a>
-          </li>
-          <li <?php if(slink::segment(2) == 'languages') echo "class=\"active\"";?>>
-            <a href="<?=URL::to('admin/languages')?>" title="Languages"><i class="fa fa-lg fa-fw fa-pencil-square-o"></i> <span class="menu-item-parent">Languages</span></a>
-          </li>
-          <li <?php if(slink::segment(2) == 'users') echo "class=\"active\"";?>>
-            <a href="<?=URL::to('admin/users')?>" title="Users"><i class="fa fa-lg fa-fw fa-windows"></i> <span class="menu-item-parent">Users</span></a>
-          </li>
+
+        <?php
+
+          foreach($options as $url => $option)
+          {
+        ?>
+
+            <li <?php if(slink::segment(2) == $url) echo "class=\"active\"";?> >
+              <a href="<?=URL::to('admin/'.$url)?>" title="<?=$option[0]?>"><i class="fa fa-lg fa-fw <?=$option[1]?>"></i> <span class="menu-item-parent"><?=$option[0]?></span></a>
+            </li>
+
+        <?php
+          }
+
+        ?>
+
         </ul>
       </nav>
       <span class="minifyme"> <i class="fa fa-arrow-circle-left hit"></i> </span>
