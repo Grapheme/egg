@@ -10,7 +10,7 @@ class GalleriesController extends BaseController {
 	public function edit($id)
 	{
 		$gall = gallery::findOrFail($id);
-		return View::make('admin.galleries.edit')->with(array('gall' => $gall, 'upload_dir' => slink::path(Config::get('egg.upload_dir'))."/galleries/" ));
+		return View::make('admin.galleries.edit')->with(array('gall' => $gall));
 	}
 
 	public function upload()
@@ -30,7 +30,7 @@ class GalleriesController extends BaseController {
 	        exit;
 	    }
  
-		$destinationPath = public_path().Config::get('egg.upload_dir').'/galleries';
+		$destinationPath = public_path().Config::get('egg.galleries_photo_dir');
 		$extension =$file->getClientOriginalExtension();
 		$filename = time().".".$extension; 
 		$upload_success = Input::file('file')->move($destinationPath, $filename);
@@ -57,7 +57,7 @@ class GalleriesController extends BaseController {
 
 		if( $db_delete )
 		{
-			$file_delete = File::delete(public_path().Config::get('egg.upload_dir').'/galleries/'.$model->name);
+			$file_delete = File::delete(public_path().Config::get('egg.galleries_photo_dir').'/'.$model->name);
 		}
 
 		if( $db_delete && $file_delete )

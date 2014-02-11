@@ -38,7 +38,7 @@
 
 	@foreach ($gall->photos as $photo)
 
-		<div><img src="{{$upload_dir.$photo->name}}" alt="" style="border: 1px solid; max-width: 150px; max-height: 150px;">
+		<div><img src="{{$photo->path()}}" alt="" style="border: 1px solid; max-width: 150px; max-height: 150px;">
 		<a href="#" class="photo-delete" data-photo-id="{{$photo->id}}">Delete</a></div>
 
 	@endforeach

@@ -36,6 +36,16 @@ class sPage {
 				       
 				        if(gallery::where('name', $name)->exists())
 				        {
+				        	$gall = gallery::where('name', $name)->first();
+				        	$photos = $gall->photos;
+				        	$str = "";
+
+				        	foreach($photos as $photo)
+				        	{
+				        		$str .= "<li><img src=\"{$photo->path()}\" alt=\"\" style=\"max-width: 150px;\"></li>";
+				        	}
+
+				        	$reg_view[] = "<ul>".$str."</ul>";
 
 				        } else {
 				        	$reg_view[] = "Error: Gallery {$name} doesn't exist";
