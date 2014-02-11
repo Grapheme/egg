@@ -29,7 +29,15 @@ Route::group(array('prefix' => $locale), function()
 	    Route::resource('pages', 'PagesController');
 	    Route::get('users', 'UsersController@index');
 	    Route::get('languages', 'LangController@index');
-	    Route::get('galleries', 'GalleriesController@index');
+
+
+	    Route::group(array('before' => 'admin_panel', 'prefix' => 'galleries'), function()
+		{
+	    	Route::get('', 'GalleriesController@index');
+	    	Route::get('{id}/edit', 'GalleriesController@edit');
+	    	Route::post('upload', 'GalleriesController@upload');
+	    });
+
 
 	    /*	
 		AJAX routing

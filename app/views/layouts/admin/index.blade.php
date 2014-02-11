@@ -188,7 +188,6 @@
           'languages' => array('Languages', 'fa-pencil-square-o'),
           'users' => array('Users', 'fa-windows'),
           'galleries' => array('Galleries', 'fa-picture-o'),
-
           );
 
         ?>
