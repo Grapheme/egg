@@ -29,7 +29,10 @@ class HomeController extends BaseController {
 
 	public function login()
 	{
-		if(Auth::attempt(array('user' => Input::get('user'), 'password' => Input::get('password'))))
+		if(Input::get('remember') == 'on') 	{ $rem = true; } else 
+											{ $rem = false; }
+
+		if(Auth::attempt(array('user' => Input::get('user'), 'password' => Input::get('password')), $rem))
 		{
 			return Redirect::to('admin');
 		} else {
