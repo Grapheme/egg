@@ -183,11 +183,11 @@
         <?php
 
         $options = array(
-          '' => array('Dashboard', 'fa-home'),
-          'pages' => array('Pages', 'fa-list-alt'),
-          'languages' => array('Languages', 'fa-pencil-square-o'),
-          'users' => array('Users', 'fa-windows'),
-          'galleries' => array('Galleries', 'fa-picture-o'),
+          '' => array(trans('admin.dashboard'), 'fa-home'),
+          'pages' => array(trans('admin.pages'), 'fa-list-alt'),
+          'languages' => array(trans('admin.languages'), 'fa-pencil-square-o'),
+          'users' => array(trans('admin.users'), 'fa-windows'),
+          'galleries' => array(trans('admin.galleries'), 'fa-picture-o'),
           );
 
         ?>
@@ -201,7 +201,7 @@
         ?>
 
             <li <?php if(slink::segment(2) == $url) echo "class=\"active\"";?> >
-              <a href="<?=URL::to('admin/'.$url)?>" title="<?=$option[0]?>"><i class="fa fa-lg fa-fw <?=$option[1]?>"></i> <span class="menu-item-parent"><?=$option[0]?></span></a>
+              <a href="{{slink::to('admin/'.$url)}}" title="<?=$option[0]?>"><i class="fa fa-lg fa-fw <?=$option[1]?>"></i> <span class="menu-item-parent"><?=$option[0]?></span></a>
             </li>
 
         <?php
