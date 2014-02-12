@@ -37,6 +37,7 @@
 		            timeout: 15000,
 		            icon : "fa fa-warning shake animated",
 		        });
+		        
 		    });
 			
 		});

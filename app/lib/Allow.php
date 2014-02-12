@@ -21,15 +21,9 @@ class Allow {
 				if(in_array($perm, $roleArray))
 				{
 					return true;
-				} else {
-					return false;
-				}
-			} else {
-				return false;
-			}
-
-		} else {
-			return false;
-		}
+					
+				} else { return false; }
+			} else { return false; }
+		} else { return false; }
 	}
 }

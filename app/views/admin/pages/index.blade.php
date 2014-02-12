@@ -3,23 +3,31 @@
 @section('plugins')
 
 <script>
+
 	$(".btn-danger").click(function(e) {
 		var $form = $(this).parent();
-				$.SmartMessageBox({
-					title : "Deleting page!",
-					content : "You're going to delete this page?",
-					buttons : '[No][Yes]'
-				}, function(ButtonPressed) {
-					if (ButtonPressed === "Yes") {
-						$form.submit();
-					}
-					if (ButtonPressed === "No") {
-						return false;
-					}
-		
+		$.SmartMessageBox({
+			title : "Deleting page!",
+			content : "You're going to delete this page?",
+			buttons : '[No][Yes]'
+		}, function(ButtonPressed) {
+			if (ButtonPressed === "Yes") {
+				$.ajax({
+					url: $form.attr('action'),
+					type: 'post',
+				}).done(function(){
+					$form.parent().parent().fadeOut();
+				}).fail(function(data){
+					console.log(data);
 				});
-				e.preventDefault();
-			})
+			}
+			if (ButtonPressed === "No") {
+				return false;
+			}
+
+		});
+		e.preventDefault();
+	});
 
 </script>
 

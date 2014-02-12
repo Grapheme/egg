@@ -139,9 +139,13 @@ class PagesController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->page->find($id)->delete();
+		if($this->page->find($id)->delete())
+		{
+			return Response::json('success', 200);
+		} else {
+			return Response::json('error', 400);
+		}
 
-		return 'deleted';
 	}
 
 }

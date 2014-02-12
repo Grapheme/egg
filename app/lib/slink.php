@@ -29,6 +29,9 @@ class slink {
 
 	public static function segment($n)
 	{
+		$locale = slang::get();
+		if($locale != null) { $n++; }
+
 		return Request::segment($n);
 	}
 }
