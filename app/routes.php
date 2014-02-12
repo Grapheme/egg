@@ -36,6 +36,8 @@ Route::group(array('prefix' => $locale), function()
 	    	Route::get('', 'GalleriesController@index');
 	    	Route::get('{id}/edit', 'GalleriesController@edit');
 	    	Route::post('upload', 'GalleriesController@upload');
+	    	Route::post('create', 'GalleriesController@create');
+	    	Route::post('delete', 'GalleriesController@delete');
 	    	Route::post('photo/delete', 'GalleriesController@deletePhoto');
 	    });
 

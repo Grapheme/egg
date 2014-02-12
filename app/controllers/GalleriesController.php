@@ -4,13 +4,13 @@ class GalleriesController extends BaseController {
 
 	public function index()
 	{
-		return View::make('admin.galleries.index');
+		return View::make('admin.galleries.index', array('galls' => gallery::all()));
 	}
 
 	public function edit($id)
 	{
 		$gall = gallery::findOrFail($id);
-		return View::make('admin.galleries.edit')->with(array('gall' => $gall));
+		return View::make('admin.galleries.edit', array('gall' => $gall));
 	}
 
 	public function upload()
@@ -26,7 +26,7 @@ class GalleriesController extends BaseController {
 	 
 	    if ($validation->fails())
 	    {
-	        return Response::make($validation->errors->first(), 400);
+	        return Response::json('This extension is not allowed', 400);
 	        exit;
 	    }
  
@@ -68,6 +68,31 @@ class GalleriesController extends BaseController {
 		}
 	}
 
+	public function create()
+	{
+		$input = Input::all();
+		$validation = Validator::make($input, gallery::getRules());
+		if($validation->fails())
+		{
+			return Response::json($validation->messages()->toJson(), 400);
+		} else {
+			$id = gallery::create($input)->id;
+			$href = slink::to('admin/galleries/'.$id.'/edit');
+			return Response::json($href, 200);
+		}
+	}
 
+	public function delete()
+	{
+		$id = Input::get('id');
+		$model = gallery::find($id);
+
+		if($model->delete())
+		{
+			return Response::json('success', 200);
+		} else {
+			return Response::json('error', 400);
+		}
+	}
 
 }
