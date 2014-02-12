@@ -25,10 +25,20 @@ Route::group(array('prefix' => $locale), function()
 	Route::group(array('before' => 'admin_panel', 'prefix' => 'admin'), function()
 	{
 	    Route::get('/', 'AdminController@mainPage');
-
-	    Route::resource('pages', 'PagesController');
 	    Route::get('users', 'UsersController@index');
-	    
+
+
+	    Route::group(array('before' => 'admin_panel', 'prefix' => 'pages'), function()
+		{
+			Route::get('/', 'PagesController@index');
+			Route::get('{id}/edit', 'PagesController@edit');
+			Route::get('create', 'PagesController@create');
+			Route::post('{id}/destroy', 'PagesController@destroy');
+			Route::post('update/{id}', 'PagesController@update');
+			Route::post('store', 'PagesController@store');
+
+		});
+
 
 	    Route::group(array('before' => 'admin_panel', 'prefix' => 'languages'), function()
 		{
@@ -48,13 +58,6 @@ Route::group(array('prefix' => $locale), function()
 	    	Route::post('photo/delete', 'GalleriesController@deletePhoto');
 	    });
 
-
-	    /*	
-		AJAX routing
-		*/
-
-		Route::post('ajax/page/update/{id}', 'PagesController@update');
-		Route::post('ajax/page/create', 'PagesController@store');
 	});
 
 	//Route::resource('groups', 'GroupsController');

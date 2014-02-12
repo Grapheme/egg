@@ -141,7 +141,7 @@ class PagesController extends BaseController {
 	{
 		$this->page->find($id)->delete();
 
-		return Redirect::route('admin.pages.index');
+		return 'deleted';
 	}
 
 }

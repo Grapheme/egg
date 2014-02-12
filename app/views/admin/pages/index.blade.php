@@ -47,11 +47,11 @@
 					<td>{{{ $page->name }}}</td>
 					<td>{{{ $page->url }}}</td>
 					<td>{{{ $page->title_en }}}</td>
-                    <td>{{ link_to_route('admin.pages.edit', 'Edit', array($page->id), array('class' => 'btn btn-info')) }}</td>
+                    <td><a href="{{slink::to('admin/pages/'.$page->id.'/edit/')}}" class="btn btn-info">Edit</a></td>
                     <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('admin.pages.destroy', $page->id))) }}
+                        <form method="POST" action="{{slink::to('admin/pages/'.$page->id.'/destroy')}}">
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
-                        {{ Form::close() }}
+                        </form>
                     </td>
 				</tr>
 			@endforeach
