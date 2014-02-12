@@ -6,8 +6,13 @@ class language extends Eloquent {
 	protected $table = 'languages';
 
 	public static $rules = array(
-		'code' => 'required',
+		'code' => 'required|unique:languages',
 		'name' => 'required'
 	);
+
+	public static function getRules()
+	{
+		return self::$rules;
+	}
 
 }

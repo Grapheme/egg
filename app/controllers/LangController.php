@@ -4,27 +4,32 @@ class LangController extends BaseController {
 
 	public function index()
 	{
-		return View::make('admin.languages');
+		return View::make('admin.languages.index', array('langs' => language::all()));
 	}
 
 	public function create()
 	{
-
 		$input = Input::all();
-		$messages = array(
-		    'required' => ':attribute',
-		);
-		$validation = language::make($input, language::$rules, $messages);
-
-		if ($validation->passes())
+		$validation = Validator::make($input, language::getRules());
+		if($validation->fails())
 		{
-			$this->page->create($input);
-			
-			//return Redirect::route('admin.pages.index');
-
-			echo json_encode(array('success' => true));
+			return Response::json($validation->messages()->toJson(), 400);
 		} else {
-			echo json_encode(array('success' => false, 'errors' => $validation->getMessageBag()->toArray()));
+			language::create($input);
+			return Response::json('success', 200);
+		}
+	}
+
+	public function delete()
+	{
+		$id = Input::get('id');
+		$model = language::find($id);
+
+		if($model->delete())
+		{
+			return Response::json('success', 200);
+		} else {
+			return Response::json('error', 400);
 		}
 	}
 }

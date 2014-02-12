@@ -15,7 +15,7 @@ class CreateGalleriesTable extends Migration {
 		Schema::create('galleries', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('name');
-			$table->string('settings');
+			$table->string('settings')->default(null);
 			$table->timestamps();
 		});
 	}

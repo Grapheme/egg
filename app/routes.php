@@ -28,7 +28,14 @@ Route::group(array('prefix' => $locale), function()
 
 	    Route::resource('pages', 'PagesController');
 	    Route::get('users', 'UsersController@index');
-	    Route::get('languages', 'LangController@index');
+	    
+
+	    Route::group(array('before' => 'admin_panel', 'prefix' => 'languages'), function()
+		{
+			Route::get('/', 'LangController@index');
+			Route::post('create', 'LangController@create');
+			Route::post('delete', 'LangController@delete');
+		});
 
 
 	    Route::group(array('before' => 'admin_panel', 'prefix' => 'galleries'), function()
