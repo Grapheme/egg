@@ -19,22 +19,23 @@
                 $dataArray[$(this).attr('name')] = ($(this).val());
             });
 
-            $dataArray.content_en = $('.editor').code();
+            $('.editor').each(function(){
+                $dataArray[$(this).attr('name')] = $(this).code();
+            });
 
 
               $.ajax({
                   url: $form.attr('action'),
                   data: $dataArray,
                   type: 'post',
-                  success: function(data) {
+                  }).done(function(){
 
-                    var json = JSON.parse(data);
-                    if(json.success)
-                    {
-                        $.bigBox({
+                    $form.find('.input').removeClass('state-error');
+
+                    $.bigBox({
                             title : "Page saved",
                             color : "#739E73",
-                            timeout: 2500,
+                            timeout: 7000,
                             icon : "fa fa-check",
                         });
 
@@ -43,20 +44,19 @@
                             window.location.href = $(that).attr('href');
                         }
 
-                    } else {
-                        
-                        var $fields = "";
+                  }).fail(function(data){
+
+                        var $errors = JSON.parse(data.responseJSON);
 
                         $form.find('.input').removeClass('state-error');
 
-                        for(key in json.errors)
+                        for(var key in $errors)
                         {
-                            $('input[name=' + json.errors[key] + ']').parent().addClass('state-error');
+                            $('input[name=' + key + ']').parent().addClass('state-error');
                             //console.log($('input[name=' + json.errors[key] + ']'));
-                            $fields += " " + json.errors[key];
                         }
 
-                        var $errorPos = $form.find('.state-error').first().parent().position().top;
+                        $errorPos = $form.find('.state-error').first().parent().position().top;
 
                         if($(window).scrollTop() > $errorPos)
                         {
@@ -65,18 +65,14 @@
                             
                         $.bigBox({
                             title : "Error!",
-                            content : "These fields aren't correct:" + $fields,
+                            content : data.responseJSON,
                             color : "#C46A69",
-                            timeout: 15000,
+                            timeout: 7000,
                             icon : "fa fa-warning shake animated",
                         });
 
-                    }
-                    
-                  }
-                });
-
-        }
+                  });
+                }
 
         $('.btn-just-save').click(function(){
             saveBtn($(this));
@@ -108,30 +104,48 @@
             <input type="text" class="input-lg" value="<?=$page->url?>" name="url">
         </label>
     </section>
-    <section>
-        <label class="label">Title</label>
-        <label class="input">
-            <input type="text" class="input-lg" value="<?=$page->title_en?>" name="title_en">
-        </label>
-    </section>
-    <section>
-        <label class="label">Description</label>
-        <label class="input">
-            <input type="text" class="input-lg" value="<?=$page->description_en?>" name="description_en">
-        </label>
-    </section>
-    <section>
-        <label class="label">Keywords</label>
-        <label class="input">
-            <input type="text" class="input-lg" value="<?=$page->keywords_en?>" name="keywords_en">
-        </label>
-    </section>
-    <section>
-        <label class="label">Content</label>
-        <label class="input">
-            <div class="editor" name="content_en"><?=$page->content_en?></div>
-        </label>
-    </section>
+
+
+    <?php $langs = slang::get('array'); ?>
+
+    <?php $active = false; ?>
+    @foreach ($langs as $lang)
+        <?php
+            $columns = array(
+                'title' => 'title_'.$lang,
+                'description' => 'description_'.$lang,
+                'keywords' => 'keywords_'.$lang,
+                'content' => 'content_'.$lang,
+            );
+        ?>
+
+        <h2>{{$lang}}:</h2>
+            <section>
+                <label class="label">Title</label>
+                <label class="input">
+                    <input type="text" class="input-lg" value="<?=$page->$columns['title']?>" name="{{$columns['title']}}">
+                </label>
+            </section>
+            <section>
+                <label class="label">Description</label>
+                <label class="input">
+                    <input type="text" class="input-lg" value="<?=$page->$columns['description']?>" name="{{$columns['description']}}">
+                </label>
+            </section>
+            <section>
+                <label class="label">Keywords</label>
+                <label class="input">
+                    <input type="text" class="input-lg" value="<?=$page->$columns['keywords']?>" name="{{$columns['keywords']}}">
+                </label>
+            </section>
+            <section>
+                <label class="label">Content</label>
+                <label class="input">
+                    <div class="editor" name="{{$columns['content']}}"><?=$page->$columns['content']?></div>
+                </label>
+            </section>
+    @endforeach
+
 </form>
 
 <a class="btn btn-primary btn-just-save" data-id="edit-from">Save</a>

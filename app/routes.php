@@ -74,6 +74,11 @@ App::missing(function($exception)
 		return View::make('admin.error404');
 		exit;
 	} else {
-		//return spage::show('404');
+		if(Page::where('url', '404')->exists())
+		{
+			return spage::show('404');
+		} else {
+			return "Page is not found, and 'Page 404' has not been created. That is why you see this page<br>Egg CMS. <a href='//grapheme.ru' style='color: #cacaca;' target='_blank'>Grapheme.ru</a>";
+		}
 	}
 });

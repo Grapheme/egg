@@ -55,9 +55,9 @@ class PagesController extends BaseController {
 			
 			//return Redirect::route('admin.pages.index');
 
-			echo json_encode(array('success' => true));
+			return Response::json('success', 200);
 		} else {
-			echo json_encode(array('success' => false, 'errors' => $validation->getMessageBag()->toArray()));
+			return Response::json($validation->getMessageBag()->toJson(), 400);
 		}
 
 		// return Redirect::route('admin.pages.create')
@@ -106,10 +106,7 @@ class PagesController extends BaseController {
 	public function update($id)
 	{
 		$input = array_except(Input::all(), '_method');
-		$messages = array(
-		    'required' => ':attribute',
-		);
-		$validation = Validator::make($input, Page::$rules, $messages);
+		$validation = Validator::make($input, Page::$rules);
 
 		if ($validation->passes())
 		{
@@ -118,12 +115,10 @@ class PagesController extends BaseController {
 
 			//return Redirect::route('admin.pages.show', $id);
 
-			echo json_encode(array('success' => true));
+			return Response::json('success', 200);
 		} else {
-			echo json_encode(array('success' => false, 'errors' => $validation->getMessageBag()->toArray()));
+			return Response::json($validation->getMessageBag()->toJson(), 400);
 		}
-
-		
 
 		// return Redirect::route('admin.pages.edit', $id)
 		// 	->withInput()

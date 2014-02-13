@@ -5,14 +5,17 @@ class sPage {
 	public static function show($url)
 	{	
 
-		$page = Page::where('url', $url)->firstOrFail();
+		$page = Page::where('url', $url)->first();
 		if($page == null) {
 			App::abort(404);
 			exit;
 		}
 		$content_lang = 'content_'.Config::get('app.locale');
 		$text = $page->$content_lang;
-		$data = array('title' => $page->title_en);
+		$columns = array(
+			'title' => 'title_'.Config::get('app.locale')
+		);
+		$data = array('title' => $page->$columns['title']);
 		preg_match_all('/\[(.*?)=(.*?)\]/', $text, $reg);
 
 		if(!empty($reg[0]))

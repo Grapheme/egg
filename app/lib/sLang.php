@@ -2,20 +2,27 @@
 
 class slang {
 
-	public static function get()
+	public static function get($array = null)
 	{
 		$languages_model = language::all();
 		foreach($languages_model as $lang)
 		{
 			$languages[] = $lang->code;
 		}
-		$locale = Request::segment(1);
-		if(in_array($locale, $languages)){
-			App::setLocale($locale);
-		}else{
-			$locale = null;
-		}
+		if($array == 'array')
+		{
+			return $languages;
+		} else {
 
-		return $locale;
+			$locale = Request::segment(1);
+			if(in_array($locale, $languages)){
+				App::setLocale($locale);
+			} else {
+				$locale = null;
+			}
+
+			return $locale;
+
+		}
 	}
 }

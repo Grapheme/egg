@@ -45,16 +45,17 @@
 			<tr>
 				<th>Name</th>
 				<th>Url</th>
-				<th>Title_en</th>
+				<th>Title</th>
 			</tr>
 		</thead>
 
 		<tbody>
 			@foreach ($pages as $page)
 				<tr>
-					<td>{{{ $page->name }}}</td>
-					<td>{{{ $page->url }}}</td>
-					<td>{{{ $page->title_en }}}</td>
+					<td>{{ $page->name }}</td>
+					<td>{{ $page->url }}</td>
+					<?php $titleLang = 'title_'.Config::get('app.locale'); ?>
+					<td>{{ $page->$titleLang }}</td>
                     <td><a href="{{slink::to('admin/pages/'.$page->id.'/edit/')}}" class="btn btn-info">Edit</a></td>
                     <td>
                         <form method="POST" action="{{slink::to('admin/pages/'.$page->id.'/destroy')}}">

@@ -6,9 +6,9 @@
 	$users = User::all();
 ?>
 
-<div style="margin-bottom: 25px;">
+<!--<div style="margin-bottom: 25px;">
 	<a class="btn btn-primary" data-toggle="modal" data-target="#lang">Add new language</a>
-</div>
+</div>-->
 <table class="table table-bordered table-striped">
 <thead>
 	<tr>

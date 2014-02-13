@@ -26,7 +26,7 @@
                   type: 'post',
                   success: function(data) {
 
-                    var json = JSON.parse(data);
+                    
                     if(json.success)
                     {
                         $.bigBox({
@@ -42,7 +42,8 @@
                         }
 
                     } else {
-                        
+
+                        var json = JSON.parse(data);
                         var $fields = "";
 
                         $form.find('.input').removeClass('state-error');
