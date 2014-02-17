@@ -56,9 +56,9 @@
 					<td>{{ $page->url }}</td>
 					<?php $titleLang = 'title_'.Config::get('app.locale'); ?>
 					<td>{{ $page->$titleLang }}</td>
-                    <td><a href="{{slink::to('admin/pages/'.$page->id.'/edit/')}}" class="btn btn-info">Edit</a></td>
+                    <td><a href="{{slink::to('admin/pages/edit/'.$page->id)}}" class="btn btn-info">Edit</a></td>
                     <td>
-                        <form method="POST" action="{{slink::to('admin/pages/'.$page->id.'/destroy')}}">
+                        <form method="POST" action="{{slink::to('admin/pages/destroy/'.$page->id)}}">
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                         </form>
                     </td>

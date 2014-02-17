@@ -23,7 +23,7 @@ class HomeController extends BaseController {
 		} else {
 			echo spage::show($url);
 		}
-		//echo slink::to('public/admin-template/index.html');
+		//echo slink::to('admin-template/index.html');
 		//echo microtime(true) - $firstTime;
 	}
 

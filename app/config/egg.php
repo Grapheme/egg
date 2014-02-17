@@ -4,6 +4,6 @@
 // Grapheme
 
 return array(
-	"upload_dir" => "/public/uploads",
-	"galleries_photo_dir" => "/public/uploads/galleries",
+	"upload_dir" => "/uploads",
+	"galleries_photo_dir" => "/uploads/galleries",
 );

@@ -17,27 +17,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <!-- Basic Styles -->
-    <link rel="stylesheet" type="text/css" media="screen" href="<?=URL::to('public/admin_template/css/bootstrap.min.css')?>">
-    <link rel="stylesheet" type="text/css" media="screen" href="<?=URL::to('public/admin_template/css/font-awesome.min.css')?>">
+    <link rel="stylesheet" type="text/css" media="screen" href="<?=URL::to('admin_template/css/bootstrap.min.css')?>">
+    <link rel="stylesheet" type="text/css" media="screen" href="<?=URL::to('admin_template/css/font-awesome.min.css')?>">
 
     <!-- SmartAdmin Styles : Please note (smartadmin-production.css) was created using LESS variables -->
-    <link rel="stylesheet" type="text/css" media="screen" href="<?=URL::to('public/admin_template/css/smartadmin-production.css')?>">
-    <link rel="stylesheet" type="text/css" media="screen" href="<?=URL::to('public/admin_template/css/smartadmin-skins.css')?>">
+    <link rel="stylesheet" type="text/css" media="screen" href="<?=URL::to('admin_template/css/smartadmin-production.css')?>">
+    <link rel="stylesheet" type="text/css" media="screen" href="<?=URL::to('admin_template/css/smartadmin-skins.css')?>">
 
     <!-- SmartAdmin RTL Support is under construction
-    <link rel="stylesheet" type="text/css" media="screen" href="<?=URL::to('public/admin_template/css/smartadmin-rtl.css')?>"> -->
+    <link rel="stylesheet" type="text/css" media="screen" href="<?=URL::to('admin_template/css/smartadmin-rtl.css')?>"> -->
 
     <!-- We recommend you use "your_style.css" to override SmartAdmin
     specific styles this will also ensure you retrain your customization
     with each SmartAdmin update.
-    <link rel="stylesheet" type="text/css" media="screen" href="<?=URL::to('public/admin_template/css/demo.css')?>"> -->
+    <link rel="stylesheet" type="text/css" media="screen" href="<?=URL::to('admin_template/css/demo.css')?>"> -->
 
     <!-- Demo purpose only: goes with demo.js, you can delete this css when designing your own WebApp -->
-    <link rel="stylesheet" type="text/css" media="screen" href="<?=URL::to('public/admin_template/css/demo.css')?>">
+    <link rel="stylesheet" type="text/css" media="screen" href="<?=URL::to('admin_template/css/demo.css')?>">
 
     <!-- FAVICONS -->
-    <link rel="shortcut icon" href="<?=URL::to('public/admin_template/img/favicon/favicon.ico')?>" type="image/x-icon">
-    <link rel="icon" href="<?=URL::to('public/admin_template/img/favicon/favicon.ico')?>" type="image/x-icon">
+    <link rel="shortcut icon" href="<?=URL::to('admin_template/img/favicon/favicon.ico')?>" type="image/x-icon">
+    <link rel="icon" href="<?=URL::to('admin_template/img/favicon/favicon.ico')?>" type="image/x-icon">
 
     <!-- GOOGLE FONT -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
@@ -181,7 +181,6 @@
         traditional hre="" links. See documentation for details.
         -->
         <?php
-
         $options = array(
           '' => array(trans('admin.dashboard'), 'fa-home'),
           'pages' => array(trans('admin.pages'), 'fa-list-alt'),
@@ -189,25 +188,17 @@
           'users' => array(trans('admin.users'), 'fa-windows'),
           'galleries' => array(trans('admin.galleries'), 'fa-picture-o'),
           );
-
         ?>
 
         <ul>
 
-        <?php
-
-          foreach($options as $url => $option)
-          {
-        ?>
+          @foreach($options as $url => $option)
 
             <li <?php if(slink::segment(2) == $url) echo "class=\"active\"";?> >
               <a href="{{slink::to('admin/'.$url)}}" title="<?=$option[0]?>"><i class="fa fa-lg fa-fw <?=$option[1]?>"></i> <span class="menu-item-parent"><?=$option[0]?></span></a>
             </li>
 
-        <?php
-          }
-
-        ?>
+          @endforeach
 
         </ul>
       </nav>
@@ -247,6 +238,18 @@
       <!-- MAIN CONTENT -->
       <div id="content">
         <!-- widget grid -->
+        <div class="row">
+          <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+              @if(isset($options[slink::segment(2)]))
+              <i class="fa-fw fa {{$options[slink::segment(2)][1]}}"></i> {{$options[slink::segment(2)][0]}}
+              @endif
+              @if(slink::segment(3) != "")
+              <span>&gt; My Dashboard</span>
+              @endif
+            </h1>
+          </div>
+        </div>
         <section id="widget-grid" class="">
 
           <!-- row -->
@@ -301,58 +304,58 @@
     <!--================================================== -->
 
     <!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
-    <script data-pace-options='{ "restartOnRequestAfter": true }' src="<?=URL::to('public/admin_template/js/plugin/pace/pace.min.js')?>"></script>
+    <script data-pace-options='{ "restartOnRequestAfter": true }' src="<?=URL::to('admin_template/js/plugin/pace/pace.min.js')?>"></script>
 
     <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
     <script>
       if (!window.jQuery) {
-        document.write('<script src="<?=URL::to('public/admin_template/js/libs/jquery-2.0.2.min.js')?>"><\/script>');
+        document.write('<script src="<?=URL::to('admin_template/js/libs/jquery-2.0.2.min.js')?>"><\/script>');
       }
     </script>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
     <script>
       if (!window.jQuery.ui) {
-        document.write('<script src="<?=URL::to('public/admin_template/js/libs/jquery-ui-1.10.3.min.js')?>"><\/script>');
+        document.write('<script src="<?=URL::to('admin_template/js/libs/jquery-ui-1.10.3.min.js')?>"><\/script>');
       }
     </script>
 
     <!-- JS TOUCH : include this plugin for mobile drag / drop touch events
-    <script src="<?=URL::to('public/admin_template/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js')?>"></script> -->
+    <script src="<?=URL::to('admin_template/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js')?>"></script> -->
 
     <!-- BOOTSTRAP JS -->
-    <script src="<?=URL::to('public/admin_template/js/bootstrap/bootstrap.min.js')?>"></script>
+    <script src="<?=URL::to('admin_template/js/bootstrap/bootstrap.min.js')?>"></script>
 
     <!-- CUSTOM NOTIFICATION -->
-    <script src="<?=URL::to('public/admin_template/js/notification/SmartNotification.js')?>"></script>
+    <script src="<?=URL::to('admin_template/js/notification/SmartNotification.js')?>"></script>
 
     <!-- JARVIS WIDGETS -->
-    <script src="<?=URL::to('public/admin_template/js/smartwidgets/jarvis.widget.min.js')?>"></script>
+    <script src="<?=URL::to('admin_template/js/smartwidgets/jarvis.widget.min.js')?>"></script>
 
     <!-- EASY PIE CHARTS -->
-    <script src="<?=URL::to('public/admin_template/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js')?>"></script>
+    <script src="<?=URL::to('admin_template/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js')?>"></script>
 
     <!-- SPARKLINES -->
-    <script src="<?=URL::to('public/admin_template/js/plugin/sparkline/jquery.sparkline.min.js')?>"></script>
+    <script src="<?=URL::to('admin_template/js/plugin/sparkline/jquery.sparkline.min.js')?>"></script>
 
     <!-- JQUERY VALIDATE -->
-    <script src="<?=URL::to('public/admin_template/js/plugin/jquery-validate/jquery.validate.min.js')?>"></script>
+    <script src="<?=URL::to('admin_template/js/plugin/jquery-validate/jquery.validate.min.js')?>"></script>
 
     <!-- JQUERY MASKED INPUT -->
-    <script src="<?=URL::to('public/admin_template/js/plugin/masked-input/jquery.maskedinput.min.js')?>"></script>
+    <script src="<?=URL::to('admin_template/js/plugin/masked-input/jquery.maskedinput.min.js')?>"></script>
 
     <!-- JQUERY SELECT2 INPUT -->
-    <script src="<?=URL::to('public/admin_template/js/plugin/select2/select2.min.js')?>"></script>
+    <script src="<?=URL::to('admin_template/js/plugin/select2/select2.min.js')?>"></script>
 
     <!-- JQUERY UI + Bootstrap Slider -->
-    <script src="<?=URL::to('public/admin_template/js/plugin/bootstrap-slider/bootstrap-slider.min.js')?>"></script>
+    <script src="<?=URL::to('admin_template/js/plugin/bootstrap-slider/bootstrap-slider.min.js')?>"></script>
 
     <!-- browser msie issue fix -->
-    <script src="<?=URL::to('public/admin_template/js/plugin/msie-fix/jquery.mb.browser.min.js')?>"></script>
+    <script src="<?=URL::to('admin_template/js/plugin/msie-fix/jquery.mb.browser.min.js')?>"></script>
 
     <!-- SmartClick: For mobile devices -->
-    <script src="<?=URL::to('public/admin_template/js/plugin/smartclick/smartclick.js')?>"></script>
+    <script src="<?=URL::to('admin_template/js/plugin/smartclick/smartclick.js')?>"></script>
 
     <!--[if IE 7]>
 
@@ -361,21 +364,21 @@
     <![endif]-->
 
     <!-- MAIN APP JS FILE -->
-    <script src="<?=URL::to('public/admin_template/js/app.js')?>"></script>
+    <script src="<?=URL::to('admin_template/js/app.js')?>"></script>
     
     <!-- PAGE RELATED PLUGIN(S) -->
     
     <!-- Flot Chart Plugin: Flot Engine, Flot Resizer, Flot Tooltip -->
-    <script src="<?=URL::to('public/admin_template/js/plugin/flot/jquery.flot.cust.js')?>"></script>
-    <script src="<?=URL::to('public/admin_template/js/plugin/flot/jquery.flot.resize.js')?>"></script>
-    <script src="<?=URL::to('public/admin_template/js/plugin/flot/jquery.flot.tooltip.js')?>"></script>
+    <script src="<?=URL::to('admin_template/js/plugin/flot/jquery.flot.cust.js')?>"></script>
+    <script src="<?=URL::to('admin_template/js/plugin/flot/jquery.flot.resize.js')?>"></script>
+    <script src="<?=URL::to('admin_template/js/plugin/flot/jquery.flot.tooltip.js')?>"></script>
     
     <!-- Vector Maps Plugin: Vectormap engine, Vectormap language -->
-    <script src="<?=URL::to('public/admin_template/js/plugin/vectormap/jquery-jvectormap-1.2.2.min.js')?>"></script>
-    <script src="<?=URL::to('public/admin_template/js/plugin/vectormap/jquery-jvectormap-world-mill-en.js')?>"></script>
+    <script src="<?=URL::to('admin_template/js/plugin/vectormap/jquery-jvectormap-1.2.2.min.js')?>"></script>
+    <script src="<?=URL::to('admin_template/js/plugin/vectormap/jquery-jvectormap-world-mill-en.js')?>"></script>
     
     <!-- Full Calendar -->
-    <script src="<?=URL::to('public/admin_template/js/plugin/fullcalendar/jquery.fullcalendar.min.js')?>"></script>
+    <script src="<?=URL::to('admin_template/js/plugin/fullcalendar/jquery.fullcalendar.min.js')?>"></script>
 
     @yield('plugins')
 

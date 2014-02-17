@@ -18,12 +18,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
         <!-- Basic Styles -->
-        <link rel="stylesheet" type="text/css" media="screen" href="{{slink::to('public/admin_template/css/bootstrap.min.css')}}"> 
-        <link rel="stylesheet" type="text/css" media="screen" href="{{slink::to('public/admin_template/css/font-awesome.min.css')}}">
+        <link rel="stylesheet" type="text/css" media="screen" href="{{slink::to('admin_template/css/bootstrap.min.css')}}"> 
+        <link rel="stylesheet" type="text/css" media="screen" href="{{slink::to('admin_template/css/font-awesome.min.css')}}">
 
         <!-- SmartAdmin Styles : Please note (smartadmin-production.css) was created using LESS variables -->
-        <link rel="stylesheet" type="text/css" media="screen" href="{{slink::to('public/admin_template/css/smartadmin-production.css')}}">
-        <link rel="stylesheet" type="text/css" media="screen" href="{{slink::to('public/admin_template/css/smartadmin-skins.css')}}">  
+        <link rel="stylesheet" type="text/css" media="screen" href="{{slink::to('admin_template/css/smartadmin-production.css')}}">
+        <link rel="stylesheet" type="text/css" media="screen" href="{{slink::to('admin_template/css/smartadmin-skins.css')}}">  
 
         <!-- GOOGLE FONT -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
@@ -117,37 +117,37 @@
         <script src="js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> -->
 
         <!-- BOOTSTRAP JS -->       
-        <script src="{{slink::to('public/admin_template/js/bootstrap/bootstrap.min.js')}}"></script>
+        <script src="{{slink::to('admin_template/js/bootstrap/bootstrap.min.js')}}"></script>
 
         <!-- CUSTOM NOTIFICATION -->
-        <script src="{{slink::to('public/admin_template/js/notification/SmartNotification.min.js')}}"></script>
+        <script src="{{slink::to('admin_template/js/notification/SmartNotification.min.js')}}"></script>
 
         <!-- JARVIS WIDGETS -->
-        <script src="{{slink::to('public/admin_template/js/smartwidgets/jarvis.widget.min.js')}}"></script>
+        <script src="{{slink::to('admin_template/js/smartwidgets/jarvis.widget.min.js')}}"></script>
         
         <!-- EASY PIE CHARTS -->
-        <script src="{{slink::to('public/admin_template/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js')}}"></script>
+        <script src="{{slink::to('admin_template/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js')}}"></script>
         
         <!-- SPARKLINES -->
-        <script src="{{slink::to('public/admin_template/js/plugin/sparkline/jquery.sparkline.min.js')}}"></script>
+        <script src="{{slink::to('admin_template/js/plugin/sparkline/jquery.sparkline.min.js')}}"></script>
         
         <!-- JQUERY VALIDATE -->
-        <script src="{{slink::to('public/admin_template/js/plugin/jquery-validate/jquery.validate.min.js')}}"></script>
+        <script src="{{slink::to('admin_template/js/plugin/jquery-validate/jquery.validate.min.js')}}"></script>
         
         <!-- JQUERY MASKED INPUT -->
-        <script src="{{slink::to('public/admin_template/js/plugin/masked-input/jquery.maskedinput.min.js')}}"></script>
+        <script src="{{slink::to('admin_template/js/plugin/masked-input/jquery.maskedinput.min.js')}}"></script>
         
         <!-- JQUERY SELECT2 INPUT -->
-        <script src="{{slink::to('public/admin_template/js/plugin/select2/select2.min.js')}}"></script>
+        <script src="{{slink::to('admin_template/js/plugin/select2/select2.min.js')}}"></script>
 
         <!-- JQUERY UI + Bootstrap Slider -->
-        <script src="{{slink::to('public/admin_template/js/plugin/bootstrap-slider/bootstrap-slider.min.js')}}"></script>
+        <script src="{{slink::to('admin_template/js/plugin/bootstrap-slider/bootstrap-slider.min.js')}}"></script>
         
         <!-- browser msie issue fix -->
-        <script src="{{slink::to('public/admin_template/js/plugin/msie-fix/jquery.mb.browser.min.js')}}"></script>
+        <script src="{{slink::to('admin_template/js/plugin/msie-fix/jquery.mb.browser.min.js')}}"></script>
         
         <!-- SmartClick: For mobile devices -->
-        <script src="{{slink::to('public/admin_template/js/plugin/smartclick/smartclick.js')}}"></script>
+        <script src="{{slink::to('admin_template/js/plugin/smartclick/smartclick.js')}}"></script>
         
         <!--[if IE 7]>
             
@@ -156,7 +156,7 @@
         <![endif]-->
 
         <!-- MAIN APP JS FILE -->
-        <script src="{{slink::to('public/admin_template/js/app.js')}}"></script>
+        <script src="{{slink::to('admin_template/js/app.js')}}"></script>
 
         <script type="text/javascript">
             runAllForms();

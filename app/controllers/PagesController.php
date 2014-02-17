@@ -19,7 +19,7 @@ class PagesController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function getIndex()
 	{
 		$pages = $this->page->all();
 
@@ -31,7 +31,7 @@ class PagesController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function getCreate()
 	{
 		return View::make('admin.pages.create');
 	}
@@ -41,13 +41,11 @@ class PagesController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function postStore()
 	{
 		$input = Input::all();
-		$messages = array(
-		    'required' => ':attribute',
-		);
-		$validation = Validator::make($input, Page::$rules, $messages);
+
+		$validation = Validator::make($input, Page::$rules);
 
 		if ($validation->passes())
 		{
@@ -72,7 +70,7 @@ class PagesController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function getShow($id)
 	{
 		$page = $this->page->findOrFail($id);
 
@@ -85,7 +83,7 @@ class PagesController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function getEdit($id)
 	{
 		$page = $this->page->find($id);
 
@@ -103,7 +101,7 @@ class PagesController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function postUpdate($id)
 	{
 		$input = array_except(Input::all(), '_method');
 		$validation = Validator::make($input, Page::$rules);
@@ -132,7 +130,7 @@ class PagesController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function postDestroy($id)
 	{
 		if($this->page->find($id)->delete())
 		{

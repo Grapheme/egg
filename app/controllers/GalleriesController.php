@@ -2,18 +2,18 @@
 
 class GalleriesController extends BaseController {
 
-	public function index()
+	public function getIndex()
 	{
 		return View::make('admin.galleries.index', array('galls' => gallery::all()));
 	}
 
-	public function edit($id)
+	public function getEdit($id)
 	{
 		$gall = gallery::findOrFail($id);
 		return View::make('admin.galleries.edit', array('gall' => $gall));
 	}
 
-	public function upload()
+	public function postUpload()
 	{
 		$file = Input::file('file');
 		$id = Input::get('gallery-id');
@@ -32,7 +32,7 @@ class GalleriesController extends BaseController {
  
 		$destinationPath = public_path().Config::get('egg.galleries_photo_dir');
 		$extension =$file->getClientOriginalExtension();
-		$filename = time().".".$extension; 
+		$filename = microtime().".".$extension; 
 		$upload_success = Input::file('file')->move($destinationPath, $filename);
 		 
 		if( $upload_success ) {
@@ -47,7 +47,7 @@ class GalleriesController extends BaseController {
 	 
 	}
 
-	public function deletePhoto() {
+	public function postPhotodelete() {
 		$id = Input::get('id');
 
 		$model = photo::find($id);
@@ -68,7 +68,7 @@ class GalleriesController extends BaseController {
 		}
 	}
 
-	public function create()
+	public function postCreate()
 	{
 		$input = Input::all();
 		$validation = Validator::make($input, gallery::getRules());
@@ -77,12 +77,12 @@ class GalleriesController extends BaseController {
 			return Response::json($validation->messages()->toJson(), 400);
 		} else {
 			$id = gallery::create($input)->id;
-			$href = slink::to('admin/galleries/'.$id.'/edit');
+			$href = slink::to('admin/galleries/edit'.$id);
 			return Response::json($href, 200);
 		}
 	}
 
-	public function delete()
+	public function postDelete()
 	{
 		$id = Input::get('id');
 		$model = gallery::find($id);

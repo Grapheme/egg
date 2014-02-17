@@ -2,12 +2,12 @@
 
 class LangController extends BaseController {
 
-	public function index()
+	public function getIndex()
 	{
 		return View::make('admin.languages.index', array('langs' => language::all()));
 	}
 
-	public function create()
+	public function postCreate()
 	{
 		$input = Input::all();
 		$validation = Validator::make($input, language::getRules());
@@ -28,7 +28,7 @@ class LangController extends BaseController {
 		}
 	}
 
-	public function delete()
+	public function postDelete()
 	{
 		$id = Input::get('id');
 		$model = language::find($id);

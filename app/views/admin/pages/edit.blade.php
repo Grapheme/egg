@@ -2,7 +2,7 @@
 
 @section('plugins')
     
-    <script src="<?=URL::to('public/admin_template/js/plugin/summernote/summernote.js')?>"></script>
+    <script src="<?=URL::to('admin_template/js/plugin/summernote/summernote.js')?>"></script>
     <script>
         $('.editor').summernote({
                 height: 250
@@ -105,46 +105,65 @@
         </label>
     </section>
 
+    <div class="tab-pane active" id="hr2">
+
+    <ul class="nav nav-tabs">
+
+    <?php $active = true; ?>
+    @foreach ($langs = language::all() as $lang)
+        <li class="<?php if($active) echo "active"; ?>">
+            <a href="#{{$lang->code}}" data-toggle="tab">{{$lang->name}}</a>
+        </li>
+        <?php $active = false; ?>
+    @endforeach
+
+    </ul>
+
+    <div class="tab-content padding-10">
 
     <?php $langs = slang::get('array'); ?>
+    <?php $active = true; ?>
+        @foreach ($langs as $lang)
+            <?php
+                $columns = array(
+                    'title' => 'title_'.$lang,
+                    'description' => 'description_'.$lang,
+                    'keywords' => 'keywords_'.$lang,
+                    'content' => 'content_'.$lang,
+                );
+            ?>
+            <div class="tab-pane <?php if($active) echo "active";?>" id="{{$lang}}">
+                <section>
+                    <label class="label">Title</label>
+                    <label class="input">
+                        <input type="text" class="input-lg" value="<?=$page->$columns['title']?>" name="{{$columns['title']}}">
+                    </label>
+                </section>
+                <section>
+                    <label class="label">Description</label>
+                    <label class="input">
+                        <input type="text" class="input-lg" value="<?=$page->$columns['description']?>" name="{{$columns['description']}}">
+                    </label>
+                </section>
+                <section>
+                    <label class="label">Keywords</label>
+                    <label class="input">
+                        <input type="text" class="input-lg" value="<?=$page->$columns['keywords']?>" name="{{$columns['keywords']}}">
+                    </label>
+                </section>
+                <section>
+                    <label class="label">Content</label>
+                    <label class="input">
+                        <div class="editor" name="{{$columns['content']}}"><?=$page->$columns['content']?></div>
+                    </label>
+                </section>
+            </div>
+            <?php $active = false; ?>
+        @endforeach
 
-    <?php $active = false; ?>
-    @foreach ($langs as $lang)
-        <?php
-            $columns = array(
-                'title' => 'title_'.$lang,
-                'description' => 'description_'.$lang,
-                'keywords' => 'keywords_'.$lang,
-                'content' => 'content_'.$lang,
-            );
-        ?>
 
-        <h2>{{$lang}}:</h2>
-            <section>
-                <label class="label">Title</label>
-                <label class="input">
-                    <input type="text" class="input-lg" value="<?=$page->$columns['title']?>" name="{{$columns['title']}}">
-                </label>
-            </section>
-            <section>
-                <label class="label">Description</label>
-                <label class="input">
-                    <input type="text" class="input-lg" value="<?=$page->$columns['description']?>" name="{{$columns['description']}}">
-                </label>
-            </section>
-            <section>
-                <label class="label">Keywords</label>
-                <label class="input">
-                    <input type="text" class="input-lg" value="<?=$page->$columns['keywords']?>" name="{{$columns['keywords']}}">
-                </label>
-            </section>
-            <section>
-                <label class="label">Content</label>
-                <label class="input">
-                    <div class="editor" name="{{$columns['content']}}"><?=$page->$columns['content']?></div>
-                </label>
-            </section>
-    @endforeach
+        </div>
+    </div>
 
 </form>
 

@@ -72,7 +72,7 @@
 	@foreach($galls as $gall)
 	<tr>
 		<td>{{$gall->name}}</td>
-		<td><a href="{{URL::to('admin/galleries/'.$gall->id.'/edit')}}">Edit</a></td>
+		<td><a href="{{slink::to('admin/galleries/edit/'.$gall->id)}}">Edit</a></td>
 		<td><a class="gallery-delete-btn" href="#" data-id="{{$gall->id}}">Delete</a></td>
 	</tr>
 

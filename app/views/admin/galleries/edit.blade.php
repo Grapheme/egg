@@ -2,7 +2,7 @@
 
 @section('plugins')
 
-	<script src="{{URL::to('public/admin_template/js/plugin/dropzone/dropzone.min.js')}}"></script>
+	<script src="{{URL::to('admin_template/js/plugin/dropzone/dropzone.min.js')}}"></script>
 	<script>
 	$(document).ready(function() {
 		Dropzone.autoDiscover = false;
@@ -18,7 +18,7 @@
 			var $photoDiv = $(this).parent();
 
 			$.ajax({
-				url: "{{slink::to('admin/galleries/photo/delete')}}",
+				url: "{{slink::to('admin/galleries/photodelete')}}",
 				data: { id: $(this).attr('data-photo-id') },
 				type: 'post',
             }).done(function(){
