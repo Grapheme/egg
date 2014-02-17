@@ -27,6 +27,11 @@ class HomeController extends BaseController {
 		//echo microtime(true) - $firstTime;
 	}
 
+	public function loginPage()
+	{
+		return View::make('admin.login');
+	}
+
 	public function login()
 	{
 		if(Input::get('remember') == 'on') 	{ $rem = true; } else 
