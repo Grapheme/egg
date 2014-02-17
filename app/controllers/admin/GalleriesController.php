@@ -4,13 +4,15 @@ class GalleriesController extends BaseController {
 
 	public function getIndex()
 	{
-		return View::make('admin.galleries.index', array('galls' => gallery::all()));
+		$galls = gallery::all();
+		return View::make('admin.galleries.index', compact('galls'));
 	}
 
 	public function getEdit($id)
 	{
 		$gall = gallery::findOrFail($id);
-		return View::make('admin.galleries.edit', array('gall' => $gall));
+		$bread = trans('admin.editing');
+		return View::make('admin.galleries.edit', compact('gall', 'bread'));
 	}
 
 	public function postUpload()
@@ -32,7 +34,7 @@ class GalleriesController extends BaseController {
  
 		$destinationPath = public_path().Config::get('egg.galleries_photo_dir');
 		$extension =$file->getClientOriginalExtension();
-		$filename = microtime().".".$extension; 
+		$filename = time()."_".rand(1000,1999).".".$extension; 
 		$upload_success = Input::file('file')->move($destinationPath, $filename);
 		 
 		if( $upload_success ) {
@@ -77,7 +79,7 @@ class GalleriesController extends BaseController {
 			return Response::json($validation->messages()->toJson(), 400);
 		} else {
 			$id = gallery::create($input)->id;
-			$href = slink::to('admin/galleries/edit'.$id);
+			$href = slink::to('admin/galleries/edit/'.$id);
 			return Response::json($href, 200);
 		}
 	}

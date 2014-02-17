@@ -40,7 +40,7 @@
     <link rel="icon" href="<?=URL::to('admin_template/img/favicon/favicon.ico')?>" type="image/x-icon">
 
     <!-- GOOGLE FONT -->
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700&subset=latin,cyrillic-ext,cyrillic">
 
   </head>
   <body class="">
@@ -187,7 +187,9 @@
           'languages' => array(trans('admin.languages'), 'fa-pencil-square-o'),
           'users' => array(trans('admin.users'), 'fa-windows'),
           'galleries' => array(trans('admin.galleries'), 'fa-picture-o'),
+          'settings' => array(trans('admin.settings'), 'fa-desktop'),
           );
+
         ?>
 
         <ul>
@@ -244,8 +246,8 @@
               @if(isset($options[slink::segment(2)]))
               <i class="fa-fw fa {{$options[slink::segment(2)][1]}}"></i> {{$options[slink::segment(2)][0]}}
               @endif
-              @if(slink::segment(3) != "")
-              <span>&gt; My Dashboard</span>
+              @if(slink::segment(3) != "" && isset($bread))
+              <span>&gt; {{$bread}}</span>
               @endif
             </h1>
           </div>

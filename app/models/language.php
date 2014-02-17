@@ -15,4 +15,15 @@ class language extends Eloquent {
 		return self::$rules;
 	}
 
+	public static function retArray()
+	{
+		$languages = language::all();
+
+		foreach($languages as $lang)
+		{
+			$array[$lang->id] = array('name' => $lang->name, 'code' => $lang->code);
+		}
+
+		return $array;
+	}
 }

@@ -7,5 +7,8 @@ return array(
 	'languages'     => 'Языки',
 	'users'     => 'Пользователи',
 	'galleries'     => 'Галлереи',
+	'settings' => 'Настройки',
+	'editing' => 'Редактирование',
+	'creating' => 'Создание',
 
 );

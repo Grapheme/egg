@@ -33,7 +33,8 @@ class PagesController extends BaseController {
 	 */
 	public function getCreate()
 	{
-		return View::make('admin.pages.create');
+		$bread = trans('admin.creating');
+		return View::make('admin.pages.create', compact('bread'));
 	}
 
 	/**
@@ -86,13 +87,14 @@ class PagesController extends BaseController {
 	public function getEdit($id)
 	{
 		$page = $this->page->find($id);
+		$bread = trans('admin.editing');
 
 		if (is_null($page))
 		{
 			return Redirect::route('admin.pages.index');
 		}
 
-		return View::make('admin.pages.edit', compact('page'));
+		return View::make('admin.pages.edit', compact('page', 'bread'));
 	}
 
 	/**

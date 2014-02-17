@@ -1,6 +1,6 @@
 <?php
 
-class UserTableSeeder extends Seeder
+class TablesSeeder extends Seeder
 {
 
 	public function run()
@@ -31,6 +31,13 @@ class UserTableSeeder extends Seeder
 			'id' => 1,
 			'name' => 'admin_panel',
 			'desc' => 'administrator panel',
+		));
+
+		DB::table('settings')->delete();
+		settings::create(array(
+			'id' => 1,
+			'name' => 'admin_language',
+			'value' => 'en',
 		));
 
 

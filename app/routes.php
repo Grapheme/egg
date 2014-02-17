@@ -11,44 +11,29 @@
 |
 */
 
-//$locale = slang::get();
+$locale = slang::get();
 
-$locale = null;
+Route::group(array('before' => 'admin_panel', 'prefix' => 'admin'), function()
+{
+	App::setLocale(settings::where('name', 'admin_language')->first()->value);
+
+    Route::get('/', 'AdminController@mainPage');
+    Route::controller('users', 'UsersController');
+	Route::controller('pages', 'PagesController');
+	Route::controller('languages', 'LangController');
+	Route::controller('galleries', 'GalleriesController');
+	Route::controller('settings', 'SettingsController');
+});
 
 Route::group(array('prefix' => $locale), function()
 {
 
-	Route::get('login', array('before' => 'login', function(){
-		return View::make('admin.login');
-	}));
+	Route::get('login', array('before' => 'login', 'uses' => 'HomeController@loginPage'));
 	Route::post('login', array('as' => 'login', 'uses' => 'HomeController@login'));
 	Route::get('logout', 'HomeController@logout');
-
-	Route::group(array('before' => 'admin_panel', 'prefix' => 'admin'), function()
-	{
-	    Route::get('/', 'AdminController@mainPage');
-
-	    Route::controller('users', 'UsersController');
-		Route::controller('pages', 'PagesController');
-		Route::controller('languages', 'LangController');
-		Route::controller('galleries', 'GalleriesController');
-
-
-/*	    Route::group(array('before' => 'admin_panel', 'prefix' => 'galleries'), function()
-		{
-	    	Route::get('', 'GalleriesController@index');
-	    	Route::get('{id}/edit', 'GalleriesController@edit');
-	    	Route::post('upload', 'GalleriesController@upload');
-	    	Route::post('create', 'GalleriesController@create');
-	    	Route::post('delete', 'GalleriesController@delete');
-	    	Route::post('photo/delete', 'GalleriesController@deletePhoto');
-	    });*/
-
-	});
-
-	//Route::resource('groups', 'GroupsController');
 
 	Route::get('/{url}', 'HomeController@showPage');
 	Route::get('/', 'HomeController@showPage');
 
 });
+
