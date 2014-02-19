@@ -10,5 +10,6 @@ return array(
 	'settings' => 'Settings',
 	'editing' => 'Editing',
 	'creating' => 'Creating',
+	'news' => 'News',
 
 );

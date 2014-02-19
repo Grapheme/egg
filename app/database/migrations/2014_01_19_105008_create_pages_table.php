@@ -14,6 +14,7 @@ class CreatePagesTable extends Migration {
 	{
 		Schema::create('pages', function(Blueprint $table) {
 			$table->increments('id');
+			$table->boolean('in_menu')->default(0);
 			$table->string('name');
 			$table->string('url');
 			$table->string('title_en');

@@ -7,9 +7,7 @@
         $('.editor').summernote({
                 height: 250
         });
-        function editorSave() {
-            var aHTML = $('.editor').code();
-        }
+
         function saveBtn(that, close)
         {
             var $formId = $(that).attr('data-id');
@@ -18,6 +16,13 @@
             $form.find('input.input-lg').each(function(){
                 $dataArray[$(this).attr('name')] = ($(this).val());
             });
+
+            if($('input[name=in_menu]').is(':checked'))
+            {
+                $dataArray['in_menu'] = $('input[name=in_menu]').val();
+            } else {
+                $dataArray['in_menu'] = 0;
+            }
 
             $('.editor').each(function(){
                 $dataArray[$(this).attr('name')] = $(this).code();
@@ -72,7 +77,7 @@
                         });
 
                   });
-                }
+        }
 
         $('.btn-just-save').click(function(){
             saveBtn($(this));
@@ -91,6 +96,11 @@
 @section('content')
 
 <form class="smart-form ajax-form" action="<?=URL::to('admin/pages/update/'.$page->id)?>" method="post" id="edit-from">
+    <label class="toggle">
+        <input type="checkbox" name="in_menu" @if($page->in_menu == 1) checked="checked" @endif value="1">
+        <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Show in menu: 
+    </label>
+
     <input class="input-lg" type="hidden" name="id" value="<?=$page->id?>">
     <section>
         <label class="label">Name</label>

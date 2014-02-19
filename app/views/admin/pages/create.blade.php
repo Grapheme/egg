@@ -17,6 +17,13 @@
                 $dataArray[$(this).attr('name')] = ($(this).val());
             });
 
+            if($('input[name=in_menu]').is(':checked'))
+            {
+                $dataArray['in_menu'] = $('input[name=in_menu]').val();
+            } else {
+                $dataArray['in_menu'] = 0;
+            }
+
             $('.editor').each(function(){
                 $dataArray[$(this).attr('name')] = $(this).code();
             });
@@ -69,10 +76,8 @@
                             icon : "fa fa-warning shake animated",
                         });
 
-                  }).always(function(data){
-                    console.log(data);
                   });
-                }
+        }
 
         $('.btn-just-save').click(function(){
             saveBtn($(this));
@@ -91,9 +96,11 @@
 
 @section('content')
 
-<h1>Create Page</h1>
-
-<form class="smart-form ajax-form" action="<?=URL::to('admin/pages/store')?>" method="post" id="edit-from">
+<form class="smart-form ajax-form" action="<?=slink::to('admin/pages/store')?>" method="post" id="edit-from">
+    <label class="toggle">
+        <input type="checkbox" name="in_menu" value="1">
+        <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Show in menu: 
+    </label>
     <section>
         <label class="label">Name</label>
         <label class="input">

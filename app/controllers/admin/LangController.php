@@ -24,6 +24,7 @@ class LangController extends BaseController {
 				$table->mediumText('content_'.Input::get('code'))->default(null);
 
 			});
+
 			return Response::json('success', 200);
 		}
 	}

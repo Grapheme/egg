@@ -2,11 +2,6 @@
 
 class PagesController extends BaseController {
 
-	/**
-	 * Page Repository
-	 *
-	 * @var Page
-	 */
 	protected $page;
 
 	public function __construct(Page $page)
@@ -14,11 +9,6 @@ class PagesController extends BaseController {
 		$this->page = $page;
 	}
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
 	public function getIndex()
 	{
 		$pages = $this->page->all();
@@ -26,22 +16,12 @@ class PagesController extends BaseController {
 		return View::make('admin.pages.index', compact('pages'));
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
 	public function getCreate()
 	{
 		$bread = trans('admin.creating');
 		return View::make('admin.pages.create', compact('bread'));
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
 	public function postStore()
 	{
 		$input = Input::all();
@@ -59,18 +39,8 @@ class PagesController extends BaseController {
 			return Response::json($validation->getMessageBag()->toJson(), 400);
 		}
 
-		// return Redirect::route('admin.pages.create')
-		// 	->withInput()
-		// 	->withErrors($validation)
-		// 	->with('message', 'There were validation errors.');
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function getShow($id)
 	{
 		$page = $this->page->findOrFail($id);
@@ -78,12 +48,6 @@ class PagesController extends BaseController {
 		return View::make('admin.pages.show', compact('page'));
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function getEdit($id)
 	{
 		$page = $this->page->find($id);
@@ -97,12 +61,6 @@ class PagesController extends BaseController {
 		return View::make('admin.pages.edit', compact('page', 'bread'));
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function postUpdate($id)
 	{
 		$input = array_except(Input::all(), '_method');
@@ -113,25 +71,13 @@ class PagesController extends BaseController {
 			$page = $this->page->find($id);
 			$page->update($input);
 
-			//return Redirect::route('admin.pages.show', $id);
-
 			return Response::json('success', 200);
 		} else {
 			return Response::json($validation->getMessageBag()->toJson(), 400);
 		}
 
-		// return Redirect::route('admin.pages.edit', $id)
-		// 	->withInput()
-		// 	->withErrors($validation)
-		// 	->with('message', 'There were validation errors.');
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function postDestroy($id)
 	{
 		if($this->page->find($id)->delete())

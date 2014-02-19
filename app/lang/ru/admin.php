@@ -4,11 +4,12 @@ return array(
 
 	'dashboard' => 'Статистика',
 	'pages'     => 'Страницы',
-	'languages'     => 'Языки',
+	'languages' => 'Языки',
 	'users'     => 'Пользователи',
-	'galleries'     => 'Галлереи',
-	'settings' => 'Настройки',
-	'editing' => 'Редактирование',
-	'creating' => 'Создание',
+	'galleries' => 'Галлереи',
+	'settings' 	=> 'Настройки',
+	'editing' 	=> 'Редактирование',
+	'creating' 	=> 'Создание',
+	'news' 		=> 'Новости',
 
 );

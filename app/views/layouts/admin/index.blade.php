@@ -188,6 +188,7 @@
           'users' => array(trans('admin.users'), 'fa-windows'),
           'galleries' => array(trans('admin.galleries'), 'fa-picture-o'),
           'settings' => array(trans('admin.settings'), 'fa-desktop'),
+          'news' => array(trans('admin.news'), 'fa-calendar'),
           );
 
         ?>
@@ -384,7 +385,14 @@
 
     @yield('plugins')
 
+    <script type="text/javascript">
+    // DO NOT REMOVE : GLOBAL FUNCTIONS!
+    $(document).ready(function() {
+      pageSetUp();
+    })
 
+    </script>
+    
     <!-- Your GOOGLE ANALYTICS CODE Below -->
     <script type="text/javascript">
       var _gaq = _gaq || [];

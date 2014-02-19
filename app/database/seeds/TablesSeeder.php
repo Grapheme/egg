@@ -15,9 +15,14 @@ class TablesSeeder extends Seeder
 		DB::table('languages')->delete();
 		language::create(array(
 			'code' => 'en',
-			'name' => 'english',
+			'name' => 'English',
 			'default' => 1,
 		));
+		/*language::create(array(
+			'code' => 'ru',
+			'name' => 'Русский',
+			'default' => 0,
+		));*/
 
 		DB::table('groups')->delete();
 		group::create(array(
