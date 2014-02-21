@@ -46,6 +46,8 @@
 				<th>Name</th>
 				<th>Url</th>
 				<th>Title</th>
+				<th></th>
+				<th></th>
 			</tr>
 		</thead>
 

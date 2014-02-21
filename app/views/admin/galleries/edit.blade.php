@@ -1,17 +1,20 @@
 @extends('layouts.admin.index')
 
 @section('plugins')
-
-	<script src="{{URL::to('admin_template/js/plugin/dropzone/dropzone.min.js')}}"></script>
+	
+	<script src="{{slink::path('admin_template/js/plugin/superbox/superbox.min.js')}}"></script>
+	<script src="{{slink::path('admin_template/js/plugin/dropzone/dropzone.min.js')}}"></script>
 	<script>
 	$(document).ready(function() {
 		Dropzone.autoDiscover = false;
-			$("#mydropzone").dropzone({
-				//url: "/file/post",
-				addRemoveLinks : false,
-				maxFilesize: 0.5,
-				dictResponseError: 'Error uploading file!'
-			});
+		$("#mydropzone").dropzone({
+			//url: "/file/post",
+			addRemoveLinks : false,
+			maxFilesize: 0.5,
+			dictResponseError: 'Error uploading file!'
+		});
+
+		$('.superbox').SuperBox();
 
 		$('.photo-delete').click(function(){
 
@@ -36,15 +39,22 @@
 
 @section('content')
 
-	@foreach ($gall->photos as $photo)
-
-		<div><img src="{{$photo->path()}}" alt="" style="border: 1px solid; max-width: 150px; max-height: 150px;">
-		<a href="#" class="photo-delete" data-photo-id="{{$photo->id}}">Delete</a></div>
-
-	@endforeach
-
 <form action="{{slink::path('admin/galleries/upload')}}" class="dropzone dz-clickable" id="mydropzone">
 	<input type="hidden" name="gallery-id" value="{{$gall->id}}">
 </form>
+
+<div class="superbox col-sm-12">
+
+	@foreach ($gall->photos as $photo)
+
+	<div class="superbox-list">
+		<img src="{{$photo->path()}}" data-img="{{$photo->path()}}" alt="Photo alt" title="Title" class="superbox-img">
+		<a href="#" class="photo-delete" data-photo-id="{{$photo->id}}">Delete</a>
+	</div>
+
+	@endforeach
+
+	<div class="superbox-float"></div>
+</div>
 
 @stop

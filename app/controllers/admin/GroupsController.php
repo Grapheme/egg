@@ -12,6 +12,8 @@ class GroupsController extends BaseController {
 	public function __construct(Group $group)
 	{
 		$this->group = $group;
+
+		$this->beforeFilter('admin_users');
 	}
 
 	/**
@@ -19,113 +21,38 @@ class GroupsController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function getIndex()
 	{
 		$groups = $this->group->all();
+		$roles = role::all();
 
-		return View::make('groups.index', compact('groups'));
+		return View::make('admin.groups.index', compact('groups', 'roles'));
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return View::make('groups.create');
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$input = Input::all();
-		$validation = Validator::make($input, Group::$rules);
-
-		if ($validation->passes())
-		{
-			$this->group->create($input);
-
-			return Redirect::route('groups.index');
-		}
-
-		return Redirect::route('groups.create')
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$group = $this->group->findOrFail($id);
-
-		return View::make('groups.show', compact('group'));
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
+	public function getEdit($id)
 	{
 		$group = $this->group->find($id);
+		$roles = role::all();
 
-		if (is_null($group))
-		{
-			return Redirect::route('groups.index');
-		}
-
-		return View::make('groups.edit', compact('group'));
+		return View::make('admin.groups.edit', compact('group', 'roles'));
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
+	public function postAttach()
 	{
-		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, Group::$rules);
+		$group_id = Input::get('group_id');
+		$role_id = Input::get('role_id');
 
-		if ($validation->passes())
-		{
-			$group = $this->group->find($id);
-			$group->update($input);
-
-			return Redirect::route('groups.show', $id);
-		}
-
-		return Redirect::route('groups.edit', $id)
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
+		$group = group::find($group_id);
+		$group->roles()->attach($role_id);
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
+	public function postDetach()
 	{
-		$this->group->find($id)->delete();
-
-		return Redirect::route('groups.index');
+		$group_id = Input::get('group_id');
+		$role_id = Input::get('role_id');
+		
+		$group = group::find($group_id);
+		$group->roles()->detach($role_id);
 	}
 
 }

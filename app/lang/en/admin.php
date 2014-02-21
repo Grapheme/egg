@@ -11,5 +11,7 @@ return array(
 	'editing' => 'Editing',
 	'creating' => 'Creating',
 	'news' => 'News',
+	'templates' => 'Templates',
+	'groups' => 'Groups',
 
 );

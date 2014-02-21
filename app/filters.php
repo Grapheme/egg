@@ -22,20 +22,33 @@ App::after(function($request, $response)
 	//
 });
 
-App::missing(function($exception)
-{
-	if(slink::segment(1) == 'admin' && allow::to('admin_panel'))
-	{
-		return View::make('admin.error404');
-		exit;
-	} else {
-		if(Page::where('url', '404')->exists())
+App::error(function(Exception $exception, $code){
+
+    if ( ! in_array($code,array(403,404))){
+       return;
+    }
+
+    switch ($code) {
+
+		case 403:
+		return 'access denied!';
+
+		case 404:
+		if(slink::segment(1) == 'admin' && allow::to('admin_panel'))
 		{
-			return spage::show('404');
+			return View::make('admin.error404');
+			exit;
 		} else {
-			return "Page is not found, and 'Page 404' has not been created. That is why you see this page<br>Egg CMS. <a href='//grapheme.ru' style='color: #cacaca;' target='_blank'>Grapheme.ru</a>";
+			if(Page::where('url', '404')->exists())
+			{
+				return spage::show('404');
+			} else {
+				return "Page is not found, and 'Page 404' has not been created. That is why you see this page<br>Egg CMS. <a href='//grapheme.ru' style='color: #cacaca;' target='_blank'>Grapheme.ru</a>";
+			}
 		}
-	}
+
+   }
+
 });
 
 /*
@@ -68,17 +81,7 @@ Route::filter('auth.basic', function()
 Permission filters:
 */
 
-Route::filter('admin_panel', function()
-{
-	if (!allow::to('admin_panel') && Auth::check()) {
-		return "access denied!"; exit;
-	}
-	if (!allow::to('admin_panel'))
-	{
-		return App::abort(404);
-		exit;
-	}
-});
+allow::filters(array('admin_panel', 'admin_news'));
 
 /*
 |--------------------------------------------------------------------------

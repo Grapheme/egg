@@ -11,7 +11,7 @@ class GalleriesController extends BaseController {
 	public function getEdit($id)
 	{
 		$gall = gallery::findOrFail($id);
-		$bread = trans('admin.editing');
+		$bread = $gall->name;
 		return View::make('admin.galleries.edit', compact('gall', 'bread'));
 	}
 

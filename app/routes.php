@@ -16,7 +16,6 @@ $locale = null;
 
 Route::group(array('before' => 'admin_panel', 'prefix' => 'admin'), function()
 {
-	//App::setLocale(settings::where('name', 'admin_language')->first()->value);
 
     Route::get('/', 'AdminController@mainPage');
     Route::controller('users', 'UsersController');
@@ -25,6 +24,9 @@ Route::group(array('before' => 'admin_panel', 'prefix' => 'admin'), function()
 	Route::controller('galleries', 'GalleriesController');
 	Route::controller('settings', 'SettingsController');
 	Route::controller('news', 'NewsController');
+	Route::controller('temps', 'TempsController');
+	Route::controller('groups', 'GroupsController');
+
 });
 
 Route::group(array('prefix' => $locale), function()

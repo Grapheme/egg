@@ -26,4 +26,37 @@ class Allow {
 			} else { return false; }
 		} else { return false; }
 	}
+
+	public static function filter($permission)
+	{
+		Route::filter($permission, function() use ($permission)
+		{
+			if($permission == 'admin_panel')
+			{
+				App::setLocale(settings::where('name', 'admin_language')->first()->value);
+			}
+
+			if (!self::to($permission) && Auth::check()) {
+				return App::abort(403);
+				exit;
+			}
+			if (!allow::to($permission))
+			{
+				return App::abort(404);
+				exit;
+			}
+
+		});
+	}
+
+	public static function filters($permissions)
+	{
+		if(is_array($permissions))
+		{
+			foreach ($permissions as $permission) {
+				self::filter($permission);
+			}
+		}
+	}
+
 }

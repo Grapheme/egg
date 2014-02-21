@@ -11,5 +11,7 @@ return array(
 	'editing' 	=> 'Редактирование',
 	'creating' 	=> 'Создание',
 	'news' 		=> 'Новости',
+	'templates' => 'Шаблоны',
+	'groups'	=> 'Группы',
 
 );

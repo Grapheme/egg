@@ -31,10 +31,10 @@ class sPage {
 				if(isset($options['name']))
 				{
 					$name = $options['name'];
-					
-					if (View::exists($name))
+
+					if (View::exists("tmp.".$name))
 					{
-						return View::make($name, $data);
+						return View::make("tmp.".$name, $data);
 					} else {
 						return "Error: (".$name." not found)";
 					}
@@ -46,25 +46,60 @@ class sPage {
 
 			case "gallery":
 
+				if(isset($options['name']))
+				{
+
 				$name = $options['name'];
 				       
-		        if(gallery::where('name', $name)->exists())
-		        {
-		        	$gall = gallery::where('name', $name)->first();
-		        	$photos = $gall->photos;
-		        	$str = "";
+			        if(gallery::where('name', $name)->exists())
+			        {
+			        	$gall = gallery::where('name', $name)->first();
+			        	$photos = $gall->photos;
+			        	$str = "";
 
-		        	foreach($photos as $photo)
-		        	{
-		        		$str .= "<li><img src=\"{$photo->path()}\" alt=\"\" style=\"max-width: 150px;\"></li>";
-		        	}
+			        	foreach($photos as $photo)
+			        	{
+			        		$str .= "<li><img src=\"{$photo->path()}\" alt=\"\" style=\"max-width: 150px;\"></li>";
+			        	}
 
-		        	return "<ul>".$str."</ul>";
+			        	return "<ul>".$str."</ul>";
 
-		        } else {
-		        	return "Error: Gallery {$name} doesn't exist";
-		        }
+			        } else {
+			        	return "Error: Gallery {$name} doesn't exist";
+			        }
+
+			    } else {
+					return "Error: name of gallery is not defined!";
+				}
+
 		        break;
+
+		    case "news":
+
+		    	// Default number
+		    	$number = 5;
+		    	if(isset($options['number']))
+		    	{
+		    		$number = $options['number'];
+		    	}
+
+		    	$string = "";
+		    	$news = news::getAmount($number);
+
+		    	foreach($news as $new)
+		    	{
+		    		$string .= $new->title;
+		    	}
+
+		    	return $string;
+
+		    	break;
+
+		    case "snippet":
+
+		    	return $options['string'];
+
+		    	break;
 
 
 		}

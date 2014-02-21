@@ -10,4 +10,10 @@ class news extends Eloquent {
 		'language' => 'required'
 	);
 
+	public static function getAmount($number)
+	{
+		$news = self::paginate($number);
+		return $news;
+	}
+
 }

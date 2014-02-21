@@ -65,6 +65,8 @@
 <thead>
 	<tr>
 		<th>Name</th>
+		<th style="width: 100px;"></th>
+		<th style="width: 100px;"></th>
 	</tr>
 </thead>
 <tbody>
@@ -72,8 +74,8 @@
 	@foreach($galls as $gall)
 	<tr>
 		<td>{{$gall->name}}</td>
-		<td><a href="{{slink::to('admin/galleries/edit/'.$gall->id)}}">Edit</a></td>
-		<td><a class="gallery-delete-btn" href="#" data-id="{{$gall->id}}">Delete</a></td>
+		<td><a href="{{slink::to('admin/galleries/edit/'.$gall->id)}}" class="btn btn-primary">Edit</a></td>
+		<td><a class="gallery-delete-btn btn btn-danger" href="#" data-id="{{$gall->id}}">Delete</a></td>
 	</tr>
 
 	@endforeach

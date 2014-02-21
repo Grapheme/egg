@@ -21,7 +21,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="<?=URL::to('admin_template/css/font-awesome.min.css')?>">
 
     <!-- SmartAdmin Styles : Please note (smartadmin-production.css) was created using LESS variables -->
-    <link rel="stylesheet" type="text/css" media="screen" href="<?=URL::to('admin_template/css/smartadmin-production.css')?>">
+    <link rel="stylesheet" type="text/css" media="screen" href="<?=URL::to('admin_template/css/smartadmin-production_unminified.css')?>">
     <link rel="stylesheet" type="text/css" media="screen" href="<?=URL::to('admin_template/css/smartadmin-skins.css')?>">
 
     <!-- SmartAdmin RTL Support is under construction
@@ -40,7 +40,9 @@
     <link rel="icon" href="<?=URL::to('admin_template/img/favicon/favicon.ico')?>" type="image/x-icon">
 
     <!-- GOOGLE FONT -->
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700&subset=latin,cyrillic-ext,cyrillic">
+<!--     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700&subset=latin,cyrillic-ext,cyrillic">
+ -->
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic&subset=latin,cyrillic-ext,cyrillic,latin-ext' rel='stylesheet' type='text/css'>
 
   </head>
   <body class="">
@@ -51,7 +53,7 @@
       <div id="logo-group">
 
         <!-- PLACE YOUR LOGO HERE -->
-        <span id="logo"> <!--<img src="img/logo.png" alt="SmartAdmin">--> </span>
+        <h1 id="logo">Strawberry CMS</h1>
         <!-- END LOGO PLACEHOLDER -->
 
         <!-- Note: The activity badge color changes when clicked and resets the number to 0
@@ -59,44 +61,6 @@
         <!--<span id="activity" class="activity-dropdown"> <i class="fa fa-user"></i> <b class="badge"> 21 </b> </span>
 
         <!-- AJAX-DROPDOWN : control this dropdown height, look and feel from the LESS variable file -->
-        <div class="ajax-dropdown">
-
-          <!-- the ID links are fetched via AJAX to the ajax container "ajax-notifications" -->
-          <div class="btn-group btn-group-justified" data-toggle="buttons">
-            <label class="btn btn-default">
-              <input type="radio" name="activity" id="ajax/notify/mail.html">
-              Msgs (14) </label>
-            <label class="btn btn-default">
-              <input type="radio" name="activity" id="ajax/notify/notifications.html">
-              notify (3) </label>
-            <label class="btn btn-default">
-              <input type="radio" name="activity" id="ajax/notify/tasks.html">
-              Tasks (4) </label>
-          </div>
-
-          <!-- notification content -->
-          <div class="ajax-notifications custom-scroll">
-
-            <div class="alert alert-transparent">
-              <h4>Click a button to show messages here</h4>
-              This blank page message helps protect your privacy, or you can show the first message here automatically.
-            </div>
-
-            <i class="fa fa-lock fa-4x fa-border"></i>
-
-          </div>
-          <!-- end notification content -->
-
-          <!-- footer: refresh area -->
-          <span> Last updated on: 12/12/2013 9:43AM
-            <button type="button" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Loading..." class="btn btn-xs btn-default pull-right">
-              <i class="fa fa-refresh"></i>
-            </button> </span>
-          <!-- end footer -->
-
-        </div>
-        <!-- END AJAX-DROPDOWN -->
-      </div>
 
       
 
@@ -165,7 +129,9 @@
 
       <!-- User info -->
       <div class="login-info">
-        <span> <!-- User image size is adjusted inside CSS, it should stay as it --> <!--<img src="img/avatars/sunny.png" alt="me" class="online" />--> <a href="javascript:void(0);" id="show-shortcut"><?php echo Auth::user()->user ?> <i class="fa fa-angle-down"></i></a> </span>
+        <span> <!-- User image size is adjusted inside CSS, it should stay as it --> <!--<img src="img/avatars/sunny.png" alt="me" class="online" />--> 
+          <a><?php echo Auth::user()->user ?></a>
+        </span>
       </div>
       <!-- end user info -->
 
@@ -182,13 +148,15 @@
         -->
         <?php
         $options = array(
-          '' => array(trans('admin.dashboard'), 'fa-home'),
-          'pages' => array(trans('admin.pages'), 'fa-list-alt'),
-          'languages' => array(trans('admin.languages'), 'fa-pencil-square-o'),
-          'users' => array(trans('admin.users'), 'fa-windows'),
-          'galleries' => array(trans('admin.galleries'), 'fa-picture-o'),
-          'settings' => array(trans('admin.settings'), 'fa-desktop'),
-          'news' => array(trans('admin.news'), 'fa-calendar'),
+          '' =>           array(trans('admin.dashboard'), 'fa-home'),
+          'pages' =>      array(trans('admin.pages'),     'fa-list-alt'),
+          'galleries' =>  array(trans('admin.galleries'), 'fa-picture-o'),
+          'news' =>       array(trans('admin.news'),      'fa-calendar'),
+          'temps' =>      array(trans('admin.templates'), 'fa-edit'),
+          'users' =>      array(trans('admin.users'),     'fa-male'),
+          'groups' =>     array(trans('admin.groups'),    'fa-shield'),
+          'languages' =>  array(trans('admin.languages'), 'fa-comments-o'),
+          'settings' =>   array(trans('admin.settings'),  'fa-cog'),
           );
 
         ?>
@@ -245,7 +213,11 @@
           <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
             <h1 class="page-title txt-color-blueDark">
               @if(isset($options[slink::segment(2)]))
-              <i class="fa-fw fa {{$options[slink::segment(2)][1]}}"></i> {{$options[slink::segment(2)][0]}}
+
+                @if(slink::segment(3))<a href="{{slink::to('admin/'.slink::segment(2))}}">@endif
+                  <i class="fa-fw fa {{$options[slink::segment(2)][1]}}"></i> {{$options[slink::segment(2)][0]}}
+                @if(slink::segment(3))</a>@endif
+
               @endif
               @if(slink::segment(3) != "" && isset($bread))
               <span>&gt; {{$bread}}</span>
@@ -275,34 +247,6 @@
 
     </div>
     <!-- END MAIN PANEL -->
-
-    <!-- SHORTCUT AREA : With large tiles (activated via clicking user name tag)
-    Note: These tiles are completely responsive,
-    you can add as many as you like
-    -->
-    <div id="shortcut">
-      <ul>
-        <li>
-          <a href="#inbox.html" class="jarvismetro-tile big-cubes bg-color-blue"> <span class="iconbox"> <i class="fa fa-envelope fa-4x"></i> <span>Mail <span class="label pull-right bg-color-darken">14</span></span> </span> </a>
-        </li>
-        <li>
-          <a href="#calendar.html" class="jarvismetro-tile big-cubes bg-color-orangeDark"> <span class="iconbox"> <i class="fa fa-calendar fa-4x"></i> <span>Calendar</span> </span> </a>
-        </li>
-        <li>
-          <a href="#gmap-xml.html" class="jarvismetro-tile big-cubes bg-color-purple"> <span class="iconbox"> <i class="fa fa-map-marker fa-4x"></i> <span>Maps</span> </span> </a>
-        </li>
-        <li>
-          <a href="#invoice.html" class="jarvismetro-tile big-cubes bg-color-blueDark"> <span class="iconbox"> <i class="fa fa-book fa-4x"></i> <span>Invoice <span class="label pull-right bg-color-darken">99</span></span> </span> </a>
-        </li>
-        <li>
-          <a href="#gallery.html" class="jarvismetro-tile big-cubes bg-color-greenLight"> <span class="iconbox"> <i class="fa fa-picture-o fa-4x"></i> <span>Gallery </span> </span> </a>
-        </li>
-        <li>
-          <a href="javascript:void(0);" class="jarvismetro-tile big-cubes selected bg-color-pinkDark"> <span class="iconbox"> <i class="fa fa-user fa-4x"></i> <span>My Profile </span> </span> </a>
-        </li>
-      </ul>
-    </div>
-    <!-- END SHORTCUT AREA -->
 
     <!--================================================== -->
 

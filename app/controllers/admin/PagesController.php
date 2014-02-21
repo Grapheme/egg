@@ -19,7 +19,8 @@ class PagesController extends BaseController {
 	public function getCreate()
 	{
 		$bread = trans('admin.creating');
-		return View::make('admin.pages.create', compact('bread'));
+		$temps = templates::all();
+		return View::make('admin.pages.create', compact('temps', 'bread'));
 	}
 
 	public function postStore()
