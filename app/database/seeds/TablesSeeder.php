@@ -33,24 +33,24 @@ class TablesSeeder extends Seeder
 
 		DB::table('roles')->delete();
 		role::create(array(
-			'id' => 1,
 			'name' => 'admin_panel',
 			'desc' => 'administrator panel',
 		));
 		role::create(array(
-			'id' => 2,
 			'name' => 'admin_news',
 			'desc' => 'Edit news',
 		));
 		role::create(array(
-			'id' => 3,
 			'name' => 'admin_pages',
 			'desc' => 'Edit pages',
 		));
 		role::create(array(
-			'id' => 4,
 			'name' => 'admin_users',
 			'desc' => 'Users managment',
+		));
+		role::create(array(
+			'name' => 'admin_downloads',
+			'desc' => 'Downloads',
 		));
 
 		DB::table('settings')->delete();
@@ -65,7 +65,10 @@ class TablesSeeder extends Seeder
 		$admin->groups()->attach(1);
 
 		$group = group::find(1);
-		$group->roles()->attach(1);
+		foreach(role::all() as $role)
+		{
+			$group->roles()->attach($role->id);
+		}
 
 	}
 

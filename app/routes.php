@@ -26,6 +26,7 @@ Route::group(array('before' => 'admin_panel', 'prefix' => 'admin'), function()
 	Route::controller('news', 'NewsController');
 	Route::controller('temps', 'TempsController');
 	Route::controller('groups', 'GroupsController');
+	Route::controller('downloads', 'DownloadsController');
 
 });
 

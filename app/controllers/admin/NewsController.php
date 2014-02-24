@@ -2,6 +2,11 @@
 
 class NewsController extends BaseController {
 
+	public function __construct()
+	{
+		$this->beforeFilter('admin_news');
+	}
+
 	public function getIndex()
 	{
 		$news = news::all();

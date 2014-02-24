@@ -59,4 +59,14 @@ class Allow {
 		}
 	}
 
+	public static function autoFilters()
+	{
+		$model = role::all();
+		foreach ($model as $role) {
+			$roles[] = $role->name;
+		}
+
+		self::filters($roles);
+	}
+
 }

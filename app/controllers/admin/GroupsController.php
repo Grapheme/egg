@@ -11,9 +11,8 @@ class GroupsController extends BaseController {
 
 	public function __construct(Group $group)
 	{
-		$this->group = $group;
-
 		$this->beforeFilter('admin_users');
+		$this->group = $group;
 	}
 
 	/**
