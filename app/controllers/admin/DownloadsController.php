@@ -17,8 +17,28 @@ class DownloadsController extends BaseController {
 
 	public function getIndex()
 	{
-		Config::get('egg.upload_dir');
-		//return View::make('admin.downloads.index');
+		$req_path = Input::get('path');
+		$path = public_path().Config::get('egg.upload_dir')."/".$req_path;
+		$directories_array = File::directories($path);
+		$files_array = File::files($path);
+		if($req_path != "")
+		{
+			$ex_path = explode("/", $req_path);
+			unset($ex_path[count($ex_path)-1]);
+			$back_link = implode("/", $ex_path);
+		}
+		foreach($directories_array as $dir)
+		{
+			$url = $req_path."/".basename($dir);
+			$dirs[$url] = basename($dir);
+		}
+		foreach($files_array as $file)
+		{
+			$url = URL::to(Config::get('egg.upload_dir').$req_path."/".basename($file));
+			$files[$url] = basename($file);
+		}
+
+		return View::make('admin.downloads.index', compact('dirs', 'files', 'back_link'));
 	}
 
 }

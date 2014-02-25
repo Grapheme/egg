@@ -2,17 +2,18 @@
 
 class sPage {
 
-	public static function shortcode($clear, $data = '')
+	public static function shortcode($clear, $data = null)
 	{
 		$str = explode(" ", $clear);
 		$type = $str[0];
 
 		if(!isset($str[1]))
 		{
+			$options = null;
 			// no options
 		} else {
 
-			// options
+			// options exist
 			$options = [];
 			for($i = 1; $i < count($str); $i++)
 			{
@@ -24,85 +25,17 @@ class sPage {
 			}
 		}
 
-		switch ($type) 
+		if(method_exists('shortcode',$type))
 		{
-			case "view":
-
-				if(isset($options['name']))
-				{
-					$name = $options['name'];
-
-					if (View::exists("tmp.".$name))
-					{
-						return View::make("tmp.".$name, $data);
-					} else {
-						return "Error: (".$name." not found)";
-					}
-				} else {
-					return "Error: name of view is not defined!";
-				}
-
-				break;
-
-			case "gallery":
-
-				if(isset($options['name']))
-				{
-
-				$name = $options['name'];
-				       
-			        if(gallery::where('name', $name)->exists())
-			        {
-			        	$gall = gallery::where('name', $name)->first();
-			        	$photos = $gall->photos;
-			        	$str = "";
-
-			        	foreach($photos as $photo)
-			        	{
-			        		$str .= "<li><img src=\"{$photo->path()}\" alt=\"\" style=\"max-width: 150px;\"></li>";
-			        	}
-
-			        	return "<ul>".$str."</ul>";
-
-			        } else {
-			        	return "Error: Gallery {$name} doesn't exist";
-			        }
-
-			    } else {
-					return "Error: name of gallery is not defined!";
-				}
-
-		        break;
-
-		    case "news":
-
-		    	// Default number
-		    	$number = 5;
-		    	if(isset($options['number']))
-		    	{
-		    		$number = $options['number'];
-		    	}
-
-		    	$string = "";
-		    	$news = news::getAmount($number);
-
-		    	foreach($news as $new)
-		    	{
-		    		$string .= $new->title;
-		    	}
-
-		    	return $string;
-
-		    	break;
-
-		    case "snippet":
-
-		    	return $options['string'];
-
-		    	break;
-
-
+			return shortcode::$type($options, $data);
+		} else {
+			return '['.$clear.']';
 		}
+	}
+
+	public static function map()
+	{
+		return 1;
 	}
 
 	public static function show($url)

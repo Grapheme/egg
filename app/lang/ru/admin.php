@@ -13,5 +13,6 @@ return array(
 	'news' 		=> 'Новости',
 	'templates' => 'Шаблоны',
 	'groups'	=> 'Группы',
+	'downloads' => 'Загрузки',
 
 );

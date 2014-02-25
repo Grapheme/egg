@@ -13,5 +13,6 @@ return array(
 	'news' => 'News',
 	'templates' => 'Templates',
 	'groups' => 'Groups',
+	'downloads' => 'Downloads',
 
 );

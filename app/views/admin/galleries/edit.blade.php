@@ -6,15 +6,18 @@
 	<script src="{{slink::path('admin_template/js/plugin/dropzone/dropzone.min.js')}}"></script>
 	<script>
 	$(document).ready(function() {
-		Dropzone.autoDiscover = false;
-		$("#mydropzone").dropzone({
-			//url: "/file/post",
+
+		var myDropzone = new Dropzone("#mydropzone", {
 			addRemoveLinks : false,
 			maxFilesize: 0.5,
 			dictResponseError: 'Error uploading file!'
 		});
 
 		$('.superbox').SuperBox();
+
+		myDropzone.on("totaluploadprogress", function(data) {
+			console.log(data);
+		});
 
 		$('.photo-delete').click(function(){
 
