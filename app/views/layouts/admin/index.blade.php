@@ -44,6 +44,8 @@
  -->
     <link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic&subset=latin,cyrillic-ext,cyrillic,latin-ext' rel='stylesheet' type='text/css'>
 
+    @yield('style')
+
   </head>
   <body class="">
     <!-- possible classes: minified, fixed-ribbon, fixed-header, fixed-width-->

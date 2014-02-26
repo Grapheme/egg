@@ -1,19 +1,26 @@
 @extends('layouts.admin.index')
 
+@section('style')
+
+<link rel="stylesheet" type="text/css" media="screen" href="{{slink::path('system/css/admin/froala_editor.min.css')}}">
+
+@stop
+
 @section('plugins')
     
-    <script src="<?=URL::to('admin_template/js/plugin/summernote/summernote.js')?>"></script>
+    <script src="{{slink::path('system/js/admin/froala_editor.min.js')}}"></script>
     <script>
-        $('.editor').summernote({
-                height: 250
-        });
+
+        $(function(){
+            $('.editor').editable({inlineMode: false});
+         });
 
         function saveBtn(that, close)
         {
             var $formId = $(that).attr('data-id');
             var $form = $('#' + $formId);
             var $dataArray = {};
-            $form.find('input.input-lg').each(function(){
+            $form.find('input.input-lg, textarea').each(function(){
                 $dataArray[$(this).attr('name')] = ($(this).val());
             });
 
@@ -29,7 +36,7 @@
             }
 
             $('.editor').each(function(){
-                $dataArray[$(this).attr('name')] = $(this).code();
+                $dataArray[$(this).attr('name')] = $(this).val();
             });
 
 
@@ -104,7 +111,7 @@
                 data:  { id: $_select.val() },
                 type: 'post'
             }).done(function(data){
-                $('.note-editable').text(data);
+                $('textarea[name=content]').text(data);
 
             }).fail(function(data){
                 console.log(data);
@@ -178,21 +185,10 @@
                     </section>
                     <section>
                         <label class="label">Content</label>
-                        <section>
-                            <label class="select">
-                                <select class="template-select">
-                                    <option value="0">Select template</option>
-                                    @foreach($temps as $temp)
-                                    <option value="{{$temp->id}}">{{$temp->name}}</option>
-                                    @endforeach
-                                </select> <i></i>
-                            </label>
-                        </section>
-                        <label class="input">
-                            <div class="editor" name="content">{{$page->content}}</div>
+                        <label class="textarea">
+                            <textarea name="content" style="height: 150px;">{{$page->content}}</textarea>
                         </label>
                     </section>
-
                 </form>
 
                 <a class="btn btn-primary btn-just-save" data-id="edit-from">Save</a>
@@ -204,6 +200,7 @@
 
     </div>
 
-</article>
 
+
+</article>
 @stop

@@ -13,7 +13,7 @@
             var $formId = $(that).attr('data-id');
             var $form = $('#' + $formId);
             var $dataArray = {};
-            $form.find('input.input-lg').each(function(){
+            $form.find('input.input-lg, textarea').each(function(){
                 $dataArray[$(this).attr('name')] = ($(this).val());
             });
 
@@ -104,7 +104,7 @@
                 data:  { id: $_select.val() },
                 type: 'post'
             }).done(function(data){
-                $('.note-editable').text(data);
+                $('textarea[name=content]').text(data);
 
             }).fail(function(data){
                 console.log(data);
@@ -203,8 +203,8 @@
                                 </select> <i></i>
                             </label>
                         </section>
-                        <label class="input">
-                            <div class="editor" name="content"></div>
+                        <label class="textarea">
+                            <textarea name="content" style="height: 150px;"></textarea>
                         </label>
                     </section>
                 </form>
