@@ -5,12 +5,14 @@ class Page extends Eloquent {
 
 	public static $rules = array(
 		'name' => 'required',
-		'url' => 'required'
+		'url' => 'required',
+		'language' => 'required'
 	);
 
 	public static function menu()
 	{
 		$pages = self::where('in_menu', 1)->get();
+		$pages = $pages->sortBy('sort_menu');
 
 		$array = [];
 

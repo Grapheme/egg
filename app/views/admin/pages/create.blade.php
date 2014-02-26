@@ -17,6 +17,10 @@
                 $dataArray[$(this).attr('name')] = ($(this).val());
             });
 
+            $form.find('select[name=language]').each(function(){
+                $dataArray[$(this).attr('name')] = ($(this).val());
+            });
+
             if($('input[name=in_menu]').is(':checked'))
             {
                 $dataArray['in_menu'] = $('input[name=in_menu]').val();
@@ -76,6 +80,8 @@
                             icon : "fa fa-warning shake animated",
                         });
 
+                  }).always(function(data){
+                    console.log(data);
                   });
         }
 
@@ -156,76 +162,51 @@
                             <input type="text" class="input-lg" name="url">
                         </label>
                     </section>
+                    <section>
+                        <label>Language</label>
+                        <label class="select">
+                            <select name="language">
+                                @foreach($langs as $lang)
+                                <option value="{{$lang->code}}">{{$lang->name}}</option>
+                                @endforeach
+                            </select> <i></i>
+                        </label>
+                    </section>
 
-                    <div class="tab-pane active" id="hr2">
-
-                    <ul class="nav nav-tabs">
-
-                    <?php $active = true; ?>
-                    @foreach ($langs = language::all() as $lang)
-                        <li class="<?php if($active) echo "active"; ?>">
-                            <a href="#{{$lang->code}}" data-toggle="tab">{{$lang->name}}</a>
-                        </li>
-                        <?php $active = false; ?>
-                    @endforeach
-
-                    </ul>
-
-                    <div class="tab-content padding-10">
-
-                    <?php $langs = slang::get('array'); ?>
-                    <?php $active = true; ?>
-                        @foreach ($langs as $lang)
-                            <?php
-                                $columns = array(
-                                    'title' => 'title_'.$lang,
-                                    'description' => 'description_'.$lang,
-                                    'keywords' => 'keywords_'.$lang,
-                                    'content' => 'content_'.$lang,
-                                );
-                            ?>
-                            <div class="tab-pane <?php if($active) echo "active";?>" id="{{$lang}}">
-                                <section>
-                                    <label class="label">Title</label>
-                                    <label class="input">
-                                        <input type="text" class="input-lg" name="{{$columns['title']}}">
-                                    </label>
-                                </section>
-                                <section>
-                                    <label class="label">Description</label>
-                                    <label class="input">
-                                        <input type="text" class="input-lg" name="{{$columns['description']}}">
-                                    </label>
-                                </section>
-                                <section>
-                                    <label class="label">Keywords</label>
-                                    <label class="input">
-                                        <input type="text" class="input-lg" name="{{$columns['keywords']}}">
-                                    </label>
-                                </section>
-                                <section>
-                                    <label class="label">Content</label>
-                                    <section>
-                                        <label class="select">
-                                            <select class="template-select">
-                                                <option value="0">Select template</option>
-                                                @foreach($temps as $temp)
-                                                <option value="{{$temp->id}}">{{$temp->name}}</option>
-                                                @endforeach
-                                            </select> <i></i>
-                                        </label>
-                                    </section>
-                                    <label class="input">
-                                        <div class="editor" name="{{$columns['content']}}"></div>
-                                    </label>
-                                </section>
-                            </div>
-                            <?php $active = false; ?>
-                        @endforeach
-
-
-                        </div>
-                    </div>
+                    <section>
+                        <label class="label">Title</label>
+                        <label class="input">
+                            <input type="text" class="input-lg" name="title">
+                        </label>
+                    </section>
+                    <section>
+                        <label class="label">Description</label>
+                        <label class="input">
+                            <input type="text" class="input-lg" name="description">
+                        </label>
+                    </section>
+                    <section>
+                        <label class="label">Keywords</label>
+                        <label class="input">
+                            <input type="text" class="input-lg" name="keywords">
+                        </label>
+                    </section>
+                    <section>
+                        <label class="label">Content</label>
+                        <section>
+                            <label class="select">
+                                <select class="template-select">
+                                    <option value="0">Select template</option>
+                                    @foreach($temps as $temp)
+                                    <option value="{{$temp->id}}">{{$temp->name}}</option>
+                                    @endforeach
+                                </select> <i></i>
+                            </label>
+                        </section>
+                        <label class="input">
+                            <div class="editor" name="content"></div>
+                        </label>
+                    </section>
                 </form>
 
                 <a class="btn btn-success btn-save-n-close" href="<?=URL::previous()?>" data-id="edit-from">Create</a>

@@ -41,17 +41,16 @@ class sPage {
 	public static function show($url)
 	{	
 
-		$page = Page::where('url', $url)->first();
+		$page = Page::where('url', $url)
+				->where('language', Config::get('app.locale'))
+				->first();
+
 		if($page == null) {
 			App::abort(404);
 			exit;
 		}
-		$content_lang = 'content_'.Config::get('app.locale');
-		$text = $page->$content_lang;
-		$columns = array(
-			'title' => 'title_'.Config::get('app.locale')
-		);
-		$data = array('title' => $page->$columns['title'], 'menu' => Page::menu());
+		$text = $page->content;
+		$data = array('title' => $page->title, 'menu' => Page::menu());
 		preg_match_all('/\[(.*?)\]/', $text, $reg);
 
 		$regs = [];

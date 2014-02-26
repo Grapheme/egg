@@ -55,16 +55,21 @@ class shortcode {
 
     	foreach($news as $new)
     	{
-    		$string .= $new->title;
+    		$string .= 	"<ul>".
+    						"<li><h2>".$new->title."</h2></li>".
+    						"<li>".$new->preview."</li>".
+    						"<li>".$new->created_at."</li>".
+    					"</ul>";
     	}
 
-    	return $string;
+    	return "<ul>".$string."</ul>";
 	}
 
 	public static function map($options)
 	{
-		if(!isset($options['width'])) 	$options['width'] = '500px';
-		if(!isset($options['height'])) 	$options['height'] = '500px';
+		if(!isset($options['width'])) 	$options['width'] = '500';
+		if(!isset($options['height'])) 	$options['height'] = '500';
+		if(!isset($options['zoom'])) 	$options['zoom'] = '5';
 		//Default options
 
 		if(!isset($options['title'])) 	{ $title = null; } 		else { $title = "hintContent: '{$options['title']}'"; }
@@ -73,10 +78,11 @@ class shortcode {
 		{
 			$placemark = null;
 		} else {
-			$placemark = 'myPlacemark = new ymaps.Placemark(['.$options['position']'], {
+			$placemark = 	'myPlacemark = new ymaps.Placemark(['.$options['position'].'], {
 			                '.$title.'
 			                '.$preview.'
-			            	});';
+			            	});
+							myMap.geoObjects.add(myPlacemark);';
 		}
 
 		$map = '<script src="http://api-maps.yandex.ru/2.0-stable/?load=package.standard&lang=ru-RU" type="text/javascript"></script>
@@ -88,13 +94,12 @@ class shortcode {
 			        function init(){ 
 			            myMap = new ymaps.Map ("map", {
 			                center: ['.$options['position'].'],
-			                zoom: 7
+			                zoom: '.$options['zoom'].'
 			            }); 
 			            '.$placemark.'
-			            myMap.geoObjects.add(myPlacemark);
 			        }
 			    </script>';
-		$div = '<div id="map" style="width: '.$options['width'].'; height: '.$options['height'].'"></div>';
+		$div = '<div id="map" style="width: '.$options['width'].'px; height: '.$options['height'].'px;"></div>';
 		return $map.$div;
 	}
 }

@@ -6,12 +6,12 @@ class PagesController extends BaseController {
 
 	public function __construct(Page $page)
 	{
-		$this->page = $page;
+		$this->model = $page;
 	}
 
 	public function getIndex()
 	{
-		$pages = $this->page->all();
+		$pages = $this->model->all();
 
 		return View::make('admin.pages.index', compact('pages'));
 	}
@@ -20,7 +20,8 @@ class PagesController extends BaseController {
 	{
 		$bread = trans('admin.creating');
 		$temps = templates::all();
-		return View::make('admin.pages.create', compact('temps', 'bread'));
+		$langs = language::all();
+		return View::make('admin.pages.create', compact('temps', 'bread', 'langs'));
 	}
 
 	public function postStore()
@@ -31,7 +32,7 @@ class PagesController extends BaseController {
 
 		if ($validation->passes())
 		{
-			$this->page->create($input);
+			$this->model->create($input);
 			
 			//return Redirect::route('admin.pages.index');
 
@@ -44,22 +45,19 @@ class PagesController extends BaseController {
 
 	public function getShow($id)
 	{
-		$page = $this->page->findOrFail($id);
+		$page = $this->model->findOrFail($id);
 
 		return View::make('admin.pages.show', compact('page'));
 	}
 
 	public function getEdit($id)
 	{
-		$page = $this->page->find($id);
+		$page = $this->model->find($id);
+		$langs = language::all();
+		$temps = templates::all();
 		$bread = trans('admin.editing');
 
-		if (is_null($page))
-		{
-			return Redirect::route('admin.pages.index');
-		}
-
-		return View::make('admin.pages.edit', compact('page', 'bread'));
+		return View::make('admin.pages.edit', compact('page', 'bread', 'langs', 'temps'));
 	}
 
 	public function postUpdate($id)
@@ -69,7 +67,7 @@ class PagesController extends BaseController {
 
 		if ($validation->passes())
 		{
-			$page = $this->page->find($id);
+			$page = $this->model->find($id);
 			$page->update($input);
 
 			return Response::json('success', 200);
@@ -81,11 +79,33 @@ class PagesController extends BaseController {
 
 	public function postDestroy($id)
 	{
-		if($this->page->find($id)->delete())
+		if($this->model->find($id)->delete())
 		{
 			return Response::json('success', 200);
 		} else {
 			return Response::json('error', 400);
+		}
+
+	}
+
+	public function getMenu()
+	{
+		$bread = "Menu";
+		$pages = $this->model->all();
+		$pages = $pages->sortBy('sort_menu');
+		return View::make('admin.pages.menu', compact('bread', 'pages'));
+	}
+
+	public function postSort()
+	{
+		$input = Input::get('menu');
+		$sorts = json_decode($input);
+		foreach($sorts as $key => $sort)
+		{
+			//print_r(Page::find($sort)->get());/*->update(array('sort_menu' => $key));*/
+			$model = Page::find($sort);
+			$model->sort_menu = $key;
+			$model->save();
 		}
 
 	}

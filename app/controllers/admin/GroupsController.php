@@ -12,7 +12,7 @@ class GroupsController extends BaseController {
 	public function __construct(Group $group)
 	{
 		$this->beforeFilter('admin_users');
-		$this->group = $group;
+		$this->model = $group;
 	}
 
 	/**
@@ -22,7 +22,7 @@ class GroupsController extends BaseController {
 	 */
 	public function getIndex()
 	{
-		$groups = $this->group->all();
+		$groups = $this->model->all();
 		$roles = role::all();
 
 		return View::make('admin.groups.index', compact('groups', 'roles'));
@@ -30,7 +30,7 @@ class GroupsController extends BaseController {
 
 	public function getEdit($id)
 	{
-		$group = $this->group->find($id);
+		$group = $this->model->find($id);
 		$roles = role::all();
 
 		return View::make('admin.groups.edit', compact('group', 'roles'));
@@ -52,6 +52,20 @@ class GroupsController extends BaseController {
 		
 		$group = group::find($group_id);
 		$group->roles()->detach($role_id);
+	}
+
+	public function postCreate()
+	{
+		$input = Input::all();
+
+		$v = Validator::make($input, group::$rules);
+		if($v->passes())
+		{
+			$this->model->create($input);
+			return slink::to('admin/groups');
+		} else {
+			return Response::json($v->messages()->toJson(), 400);
+		}
 	}
 
 }

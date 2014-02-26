@@ -17,6 +17,10 @@
                 $dataArray[$(this).attr('name')] = ($(this).val());
             });
 
+            $form.find('select[name=language]').each(function(){
+                $dataArray[$(this).attr('name')] = ($(this).val());
+            });
+
             if($('input[name=in_menu]').is(':checked'))
             {
                 $dataArray['in_menu'] = $('input[name=in_menu]').val();
@@ -76,6 +80,8 @@
                             icon : "fa fa-warning shake animated",
                         });
 
+                  }).always(function(data){
+                    console.log(data);
                   });
         }
 
@@ -88,6 +94,24 @@
             saveBtn($(this), true);
             return false;
         });
+
+        $('.template-select').on('change', function(){
+
+            $_select = $(this);
+
+            $.ajax({
+                url: '{{slink::to('admin/temps/insert/')}}',
+                data:  { id: $_select.val() },
+                type: 'post'
+            }).done(function(data){
+                $('.note-editable').text(data);
+
+            }).fail(function(data){
+                console.log(data);
+
+            });
+        });
+
 
     </script>
 
@@ -109,79 +133,65 @@
                         <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Show in menu: 
                     </label>
 
-                    <input class="input-lg" type="hidden" name="id" value="<?=$page->id?>">
+                    <input class="input-lg" type="hidden" name="id" value="{{$page->id}}">
                     <section>
                         <label class="label">Name</label>
                         <label class="input">
-                            <input type="text" class="input-lg" value="<?=$page->name?>" name="name">
+                            <input type="text" class="input-lg" value="{{$page->name}}" name="name">
                         </label>
                     </section>
                     <section>
                         <label class="label">URL</label>
                         <label class="input">
-                            <input type="text" class="input-lg" value="<?=$page->url?>" name="url">
+                            <input type="text" class="input-lg" value="{{$page->url}}" name="url">
                         </label>
                     </section>
 
-                    <div class="tab-pane active" id="hr2">
+                    <section>
+                        <label>Language</label>
+                        <label class="select">
+                            <select name="language">
+                                @foreach($langs as $lang)
+                                <option value="{{$lang->code}}">{{$lang->name}}</option>
+                                @endforeach
+                            </select> <i></i>
+                        </label>
+                    </section>
 
-                    <ul class="nav nav-tabs">
-
-                    <?php $active = true; ?>
-                    @foreach ($langs = language::all() as $lang)
-                        <li class="<?php if($active) echo "active"; ?>">
-                            <a href="#{{$lang->code}}" data-toggle="tab">{{$lang->name}}</a>
-                        </li>
-                        <?php $active = false; ?>
-                    @endforeach
-
-                    </ul>
-
-                    <div class="tab-content padding-10">
-
-                    <?php $langs = slang::get('array'); ?>
-                    <?php $active = true; ?>
-                        @foreach ($langs as $lang)
-                            <?php
-                                $columns = array(
-                                    'title' => 'title_'.$lang,
-                                    'description' => 'description_'.$lang,
-                                    'keywords' => 'keywords_'.$lang,
-                                    'content' => 'content_'.$lang,
-                                );
-                            ?>
-                            <div class="tab-pane <?php if($active) echo "active";?>" id="{{$lang}}">
-                                <section>
-                                    <label class="label">Title</label>
-                                    <label class="input">
-                                        <input type="text" class="input-lg" value="<?=$page->$columns['title']?>" name="{{$columns['title']}}">
-                                    </label>
-                                </section>
-                                <section>
-                                    <label class="label">Description</label>
-                                    <label class="input">
-                                        <input type="text" class="input-lg" value="<?=$page->$columns['description']?>" name="{{$columns['description']}}">
-                                    </label>
-                                </section>
-                                <section>
-                                    <label class="label">Keywords</label>
-                                    <label class="input">
-                                        <input type="text" class="input-lg" value="<?=$page->$columns['keywords']?>" name="{{$columns['keywords']}}">
-                                    </label>
-                                </section>
-                                <section>
-                                    <label class="label">Content</label>
-                                    <label class="input">
-                                        <div class="editor" name="{{$columns['content']}}"><?=$page->$columns['content']?></div>
-                                    </label>
-                                </section>
-                            </div>
-                            <?php $active = false; ?>
-                        @endforeach
-
-
-                        </div>
-                    </div>
+                    <section>
+                        <label class="label">Title</label>
+                        <label class="input">
+                            <input type="text" class="input-lg" name="title" value="{{$page->title}}">
+                        </label>
+                    </section>
+                    <section>
+                        <label class="label">Description</label>
+                        <label class="input">
+                            <input type="text" class="input-lg" name="description" value="{{$page->description}}">
+                        </label>
+                    </section>
+                    <section>
+                        <label class="label">Keywords</label>
+                        <label class="input">
+                            <input type="text" class="input-lg" name="keywords" value="{{$page->keywords}}">
+                        </label>
+                    </section>
+                    <section>
+                        <label class="label">Content</label>
+                        <section>
+                            <label class="select">
+                                <select class="template-select">
+                                    <option value="0">Select template</option>
+                                    @foreach($temps as $temp)
+                                    <option value="{{$temp->id}}">{{$temp->name}}</option>
+                                    @endforeach
+                                </select> <i></i>
+                            </label>
+                        </section>
+                        <label class="input">
+                            <div class="editor" name="content">{{$page->content}}</div>
+                        </label>
+                    </section>
 
                 </form>
 

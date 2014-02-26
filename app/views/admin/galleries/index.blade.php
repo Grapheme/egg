@@ -61,6 +61,8 @@
 <div style="margin-bottom: 25px;">
 	<a class="btn btn-primary" data-toggle="modal" data-target="#gallery">Add new gallery</a>
 </div>
+
+@if ($galls->count())
 <table class="table table-bordered table-striped">
 <thead>
 	<tr>
@@ -109,5 +111,8 @@
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div>
+@else
+	There are no galleries
+@endif
 
 @stop

@@ -39,6 +39,12 @@
 	<a class="btn btn-primary" href="<?=slink::to('admin/pages/create')?>">Add new page</a>
 </div>
 
+@if ($pages->count() > 1)
+<div style="margin-bottom: 25px;">
+	<a class="btn btn-default" href="<?=slink::to('admin/pages/menu')?>">Sort menu</a>
+</div>
+@endif
+
 @if ($pages->count())
 	<table class="table table-striped table-bordered">
 		<thead>
