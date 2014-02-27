@@ -193,6 +193,7 @@
 
                 <a class="btn btn-primary btn-just-save" data-id="edit-from">Save</a>
                 <a class="btn btn-success btn-save-n-close" href="<?=URL::previous()?>" data-id="edit-from">Save and quit</a>
+                <a style="float: right;" class="btn btn-default" target="_blank" href="{{slink::to($page->url)}}">Go to page</a>
 
             </div>
 

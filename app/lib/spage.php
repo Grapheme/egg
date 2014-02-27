@@ -14,7 +14,6 @@ class sPage {
 		} else {
 
 			// options exist
-			$options = [];
 			for($i = 1; $i < count($str); $i++)
 			{
 				preg_match_all('/(.*?)=\"(.*?)\"/', $str[$i], $rendered);
