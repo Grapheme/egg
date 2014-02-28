@@ -11,16 +11,14 @@ class Page extends Eloquent {
 
 	public static function menu()
 	{
-		$pages = self::where('in_menu', 1)->get();
-		$pages = $pages->sortBy('sort_menu');
+		$pages = self::orderBy('sort_menu', 'asc')->where('in_menu', 1)->get();
 
-		$array = [];
-
+		$menu = [];
 		foreach($pages as $page)
 		{
-			$array[$page->url] = $page->name;
+			$menu[$page->url] = $page->name;
 		}
 
-		return View::make('layouts.menu', array('menu' => $array));
+		return View::make('layouts.menu', compact('menu'));
 	}
 }
