@@ -2,11 +2,7 @@
 
 @section('plugins')
     
-    <script src="<?=URL::to('admin_template/js/plugin/summernote/summernote.js')?>"></script>
     <script>
-        $('.editor').summernote({
-                height: 250
-        });
 
         function saveBtn(that, close)
         {

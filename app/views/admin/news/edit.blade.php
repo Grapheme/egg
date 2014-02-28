@@ -50,8 +50,15 @@
 	        </label>
 	    </section>
 	    <section>
+	        <label class="label">Date</label>
+	        <label class="input">
+	            <input type="text" class="input-lg" name="updated_at" value="{{$new->updated_at}}">
+	        </label>
+	    </section>
+	    <section>
 	    	<button type="submit" class="btn btn-primary">Save and quit</button>
 	    	<button class="btn ajax-save">Save</button>
+	    	<button onclick="window.open('{{slink::to('news/'.$new->id)}}');return false;" class="btn btn-default" style="float: right;">Go to news</button>
 	    </section>
 	</form>
 

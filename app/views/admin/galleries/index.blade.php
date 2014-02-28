@@ -84,6 +84,9 @@
 
 </tbody>
 </table>
+@else
+	There are no galleries
+@endif
 
 <div class="modal fade in" id="gallery" tabindex="-1">
 	<div class="modal-dialog">
@@ -111,8 +114,5 @@
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div>
-@else
-	There are no galleries
-@endif
 
 @stop

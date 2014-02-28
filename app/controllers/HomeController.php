@@ -15,6 +15,12 @@ class HomeController extends BaseController {
 	|
 	*/
 
+	public function showNews($id)
+	{
+		$news = news::find($id);
+		return View::make('layouts.news', compact('news'));
+	}
+
 	public function showPage($url = null)
 	{
 		//$firstTime = microtime(true);

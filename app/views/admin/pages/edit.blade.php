@@ -1,19 +1,8 @@
 @extends('layouts.admin.index')
 
-@section('style')
-
-<link rel="stylesheet" type="text/css" media="screen" href="{{slink::path('system/css/admin/froala_editor.min.css')}}">
-
-@stop
-
 @section('plugins')
     
-    <script src="{{slink::path('system/js/admin/froala_editor.min.js')}}"></script>
     <script>
-
-        $(function(){
-            $('.editor').editable({inlineMode: false});
-         });
 
         function saveBtn(that, close)
         {

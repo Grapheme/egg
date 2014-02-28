@@ -50,6 +50,13 @@ class sPage {
 		}
 		$text = $page->content;
 		$data = array('title' => $page->title, 'menu' => Page::menu());
+
+		return self::render($text, $data);
+
+	}
+
+	public static function render($text, $data = null)
+	{
 		preg_match_all('/\[(.*?)\]/', $text, $reg);
 
 		$regs = [];
@@ -76,7 +83,6 @@ class sPage {
 		$text = str_replace($change, $to, $text);
 
 		return $text;
-
 	}
 
 }

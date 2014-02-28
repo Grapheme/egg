@@ -42,27 +42,24 @@ class shortcode {
 
 	public static function news($options)
 	{
-		$number = 5;
-		//Default limit of news
+		$limit = 5;
+		$view = 'list';
+		//Default options
 
-    	if(isset($options['number']))
-    	{
-    		$number = $options['number'];
-    	}
+		if(isset($options['view'])) 	{ $view = $options['view']; }
+    	if(isset($options['limit'])) 	{ $limit = $options['limit']; }
 
     	$string = "";
-    	$news = news::getAmount($number);
+    	$news = news::where('language', Config::get('app.locale'))->take($limit)->get();
 
-    	foreach($news as $new)
+    	if($view == 'list') 
     	{
-    		$string .= 	"<ul>".
-    						"<li><h2>".$new->title."</h2></li>".
-    						"<li>".$new->preview."</li>".
-    						"<li>".$new->created_at."</li>".
-    					"</ul>";
-    	}
+    		return View::make('layouts.news-list', compact('news'));
+		}
+		elseif($view == 'calendar') {
+			return View::make('layouts.news-calendar', compact('news'));
+		}
 
-    	return "<ul>".$string."</ul>";
 	}
 
 	public static function map($options)
