@@ -17,8 +17,13 @@ class DownloadsController extends BaseController {
 
 	public function getIndex()
 	{
+		$dir = public_path().Config::get('egg.upload_dir')."/";
+		if (!file_exists($dir) and !is_dir($dir)) {
+		    mkdir($dir);         
+		}
+		 
 		$req_path = Input::get('path');
-		$path = public_path().Config::get('egg.upload_dir')."/".$req_path;
+		$path = $dir.$req_path;
 		$directories_array = File::directories($path);
 		$files_array = File::files($path);
 		if($req_path != "")
@@ -48,7 +53,7 @@ class DownloadsController extends BaseController {
  
 		$destinationPath = public_path().Config::get('egg.upload_dir').$path;
 		$extension =$file->getClientOriginalExtension();
-		$filename = time()."_".rand(1000,1999).".".$extension; 
+		$filename = time()."_".str_random(40).".".$extension; 
 		$upload_success = Input::file('file')->move($destinationPath, $filename);
 		 
 		if( $upload_success ) {
