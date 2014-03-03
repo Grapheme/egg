@@ -16,4 +16,19 @@ class SettingsController extends BaseController {
 		$model->value = language::find($id)->code;
 		$model->save();
 	}
+
+	public function postModuleon()
+	{
+		$url = Input::get('url');
+		modules::create(array(
+			'url' => $url
+		));
+	}
+
+	public function postModuleoff()
+	{
+		$url = Input::get('url');
+		$module = modules::where('url', $url)->first();
+		$module->delete();
+	}
 }
