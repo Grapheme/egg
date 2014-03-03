@@ -25,7 +25,7 @@ class HomeController extends BaseController {
 	{
 		//$firstTime = microtime(true);
 		if($url == null) {
-			echo spage::show('index');
+			echo spage::show('');
 		} else {
 			echo spage::show($url);
 		}

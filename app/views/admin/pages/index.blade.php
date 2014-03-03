@@ -37,13 +37,10 @@
 
 <div style="margin-bottom: 25px;">
 	<a class="btn btn-primary" href="<?=slink::to('admin/pages/create')?>">Add new page</a>
+	@if ($pages->count() > 1)
+		<a class="btn btn-default" href="<?=slink::to('admin/pages/menu')?>">Sort menu</a>
+	@endif
 </div>
-
-@if ($pages->count() > 1)
-<div style="margin-bottom: 25px;">
-	<a class="btn btn-default" href="<?=slink::to('admin/pages/menu')?>">Sort menu</a>
-</div>
-@endif
 
 @if ($pages->count())
 	<table class="table table-striped table-bordered">
@@ -61,9 +58,8 @@
 			@foreach ($pages as $page)
 				<tr>
 					<td>{{ $page->name }}</td>
-					<td>{{ $page->url }}</td>
-					<?php $titleLang = 'title_'.Config::get('app.locale'); ?>
-					<td>{{ $page->$titleLang }}</td>
+					<td>/{{ $page->url }}</td>
+					<td>{{ $page->title }}</td>
                     <td><a href="{{slink::to('admin/pages/edit/'.$page->id)}}" class="btn btn-info">Edit</a></td>
                     <td>
                         <form method="POST" action="{{slink::to('admin/pages/destroy/'.$page->id)}}">

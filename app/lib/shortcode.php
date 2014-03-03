@@ -71,6 +71,7 @@ class shortcode {
 
 		if(!isset($options['title'])) 	{ $title = null; } 		else { $title = "hintContent: '{$options['title']}'"; }
 		if(!isset($options['preview']))	{ $preview = null; }	else { $preview = "balloonContent: '{$options['preview']}'"; }
+		
 		if( $title == null && $preview == null)
 		{
 			$placemark = null;

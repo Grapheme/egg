@@ -6,4 +6,5 @@
     {{spage::render($news->content)}}
     <p>{{$news->created_at}}</p>
   </div>
+  <a href="{{URL::previous()}}">&lt;Back</a>
 </div>

@@ -32,11 +32,6 @@ class sPage {
 		}
 	}
 
-	public static function map()
-	{
-		return 1;
-	}
-
 	public static function show($url)
 	{	
 
