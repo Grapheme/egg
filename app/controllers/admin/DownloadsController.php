@@ -18,10 +18,11 @@ class DownloadsController extends BaseController {
 	public function getIndex()
 	{
 		$dir = public_path().Config::get('egg.upload_dir')."/";
-		if (!file_exists($dir) and !is_dir($dir)) {
+
+		if (!file_exists($dir) or !is_dir($dir)) {
 		    mkdir($dir);         
 		}
-		 
+
 		$req_path = Input::get('path');
 		$path = $dir.$req_path;
 		$directories_array = File::directories($path);

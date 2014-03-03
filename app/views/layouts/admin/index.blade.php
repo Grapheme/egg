@@ -47,7 +47,7 @@
     @yield('style')
 
   </head>
-  <body class="">
+  <body class="smart-style-2">
     <!-- possible classes: minified, fixed-ribbon, fixed-header, fixed-width-->
 
     <!-- HEADER -->
