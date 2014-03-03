@@ -9,7 +9,8 @@
 <script>
 
 $('.editor').redactor({ 
-    minHeight: 200
+    minHeight: 200,
+    autoresize: false
 });
 
 function saveBtn(that, close)
@@ -136,11 +137,12 @@ $('.template-select').on('change', function(){
     <div class="smart-form">
         <header>Seo</header>
         <fieldset>
-            <label class="toggle" style="display: inline-block;">
-                <input type="checkbox" name="in_menu" @if($page->in_menu == 1) checked="checked" @endif value="1">
-                <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Show in menu: 
-                <hr>
-            </label>
+            <section>
+                <label class="toggle" style="display: inline-block;">
+                    <input type="checkbox" name="in_menu" @if($page->in_menu == 1) checked="checked" @endif value="1">
+                    <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Show in menu: 
+                </label>
+            </section>
             <input class="input-lg" type="hidden" name="id" value="{{$page->id}}">
             <section>
                 <label class="label">URL</label>

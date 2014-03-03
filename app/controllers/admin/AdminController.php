@@ -17,6 +17,10 @@ class AdminController extends BaseController {
 
 	public function mainPage()
 	{
+		return Redirect::to('admin/pages');
+		exit;
+		//////////////
+
 		return View::make('admin.index');
 	}
 

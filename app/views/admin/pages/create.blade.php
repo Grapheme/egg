@@ -147,13 +147,10 @@ $('.template-select').on('change', function(){
         <header>Seo</header>
         <fieldset>
             <section>
-                <section style="display: inline-block;">
-                    <label class="toggle">
-                        <input type="checkbox" name="in_menu" value="1">
-                        <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Show in menu: 
-                    </label>
-                </section>
-                <hr>
+                <label class="toggle" style="display: inline-block;">
+                    <input type="checkbox" name="in_menu" value="1">
+                    <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Show in menu: 
+                </label>
             </section>
             <section>
                 <label class="label">URL</label>
