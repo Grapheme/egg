@@ -32,19 +32,16 @@ class sPage {
 		}
 	}
 
-	public static function show($url)
-	{	
+	public static function show($url){
 
-		$page = Page::where('url', $url)
-				->where('language', Config::get('app.locale'))
-				->first();
+		$page = Page::where('url', $url)->where('language', Config::get('app.locale'))->first();
 
 		if($page == null) {
 			App::abort(404);
 			exit;
 		}
 		$text = $page->content;
-		$data = array('title' => $page->title, 'menu' => Page::menu());
+		$data = array('title' => $page->title, 'description'=> $page->description,'keywords' => $page->keywords, 'menu' => Page::menu());
 
 		return self::render($text, $data);
 

@@ -74,7 +74,7 @@ $.fn.ajax_submit = function($redirect)
 
 	var $_save_btn = $(this).find('.ajax-save');
 
-	$_form.on('submit', function(e){
+	$_form.on('submit', function(event){
 		event.preventDefault();
 		formSubmitOn($_form, $redirect);
 

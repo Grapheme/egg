@@ -1,11 +1,8 @@
 @foreach($news as $new)
-<div class="panel panel-info">
-  <div class="panel-heading">
-    <h3 class="panel-title"><a href="{{slink::to('news/'.$new->id)}}">{{$new->title}}</a></h3>
-  </div>
-  <div class="panel-body">
-    {{$new->preview}}
-    <p>{{$new->created_at}}</p>
-  </div>
+<h2><a href="{{slink::to('news/'.$new->id)}}">{{$new->title}}</a></h2>
+<p><span class="glyphicon glyphicon-time"></span> {{ myDateTime::SwapDotDateWithTime($new->created_at) }}</p>
+<div>
+	{{$new->preview}}
 </div>
+<a class="btn btn-default" href="{{slink::to('news/'.$new->id)}}">Просмотр <span class="glyphicon glyphicon-chevron-right"></span></a>
 @endforeach

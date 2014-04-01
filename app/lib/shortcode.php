@@ -2,10 +2,9 @@
 
 class shortcode {
 
-	public static function view($options, $data)
-	{
-		if(isset($options['name']))
-		{
+	public static function view($options, $data){
+		
+		if(isset($options['name'])){
 			$name = $options['name'];
 			if (View::exists("tmp.".$name)) { return View::make("tmp.".$name, $data); } else 
 											{ return "Error: (".$name." not found)"; }

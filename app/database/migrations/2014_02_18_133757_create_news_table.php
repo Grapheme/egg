@@ -17,6 +17,9 @@ class CreateNewsTable extends Migration {
 			$table->string('language');
 			$table->string('title');
 			$table->string('preview');
+			$table->string('page_title');
+			$table->text('page_description');
+			$table->text('page_keywords');
 			$table->text('content');
 			$table->timestamps();
 		});

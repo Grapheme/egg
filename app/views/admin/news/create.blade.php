@@ -31,6 +31,24 @@
 				</select>
 	        </label>
 	    </section>
+	    <section>
+            <label class="label">Page Title</label>
+            <label class="input">
+                <input type="text" class="input-lg" name="page_title">
+            </label>
+        </section>
+        <section>
+            <label class="label">Page Description</label>
+            <label class="input">
+                <input type="text" class="input-lg" name="page_description">
+            </label>
+        </section>
+        <section>
+            <label class="label">Page Keywords</label>
+            <label class="input">
+                <input type="text" class="input-lg" name="page_keywords">
+            </label>
+        </section>
 		<section>
 	        <label class="label">Title</label>
 	        <label class="input">

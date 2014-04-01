@@ -31,10 +31,29 @@
 				</select>
 	        </label>
 	    </section>
+	    <section>
+            <label class="label">Page Title</label>
+            <label class="input">
+                <input type="text" class="input-lg" name="page_title" value="{{{$new->page_title}}}">
+            </label>
+        </section>
+        <section>
+            <label class="label">Page Description</label>
+            <label class="input">
+                <input type="text" class="input-lg" name="page_description" value="{{{$new->page_description}}}">
+            </label>
+        </section>
+        <section>
+            <label class="label">Page Keywords</label>
+            <label class="input">
+                <input type="text" class="input-lg" name="page_keywords" value="{{{$new->page_keywords}}}">
+            </label>
+        </section>
+		<section>
 		<section>
 	        <label class="label">Title</label>
 	        <label class="input">
-	            <input type="text" class="input-lg" name="title" value="{{$new->title}}">
+	            <input type="text" class="input-lg" name="title" value="{{{$new->title}}}">
 	        </label>
 	    </section>
 	    <section>

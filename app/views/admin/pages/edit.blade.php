@@ -6,12 +6,8 @@
 
 @section('plugins')
 <script src="{{slink::path('system/js/admin/redactor.js')}}"></script>
+<script src="{{slink::path('system/js/admin/redactor-config.js')}}"></script>
 <script>
-
-$('.editor').redactor({ 
-    minHeight: 200,
-    autoresize: false
-});
 
 function saveBtn(that, close)
 {
@@ -127,7 +123,7 @@ $('.template-select').on('change', function(){
             <section>
                 <label class="label">Content</label>
                 <label class="textarea">
-                    <textarea name="content" style="height: 150px;" class="editor">{{$page->content}}</textarea>
+                    <textarea name="content" style="height: 300px;" class="editor">{{$page->content}}</textarea>
                 </label>
             </section>
         </fieldset>

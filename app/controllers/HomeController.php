@@ -15,10 +15,17 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public function showNews($id)
-	{
-		$news = news::find($id);
-		return View::make('layouts.news', compact('news'));
+	public function showNews($id){
+		if($news = news::find($id)){
+			$title = $news->page_title;
+			$description = $news->page_description;
+			$keywords = $news->page_keywords;
+			$menu = Page::menu();
+			return View::make('layouts.news',compact('news','title','description','keywords','menu'));
+		}else{
+			return App::abort(404);
+		}
+		
 	}
 
 	public function showPage($url = null)
