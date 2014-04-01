@@ -55,7 +55,7 @@
       <div id="logo-group">
 
         <!-- PLACE YOUR LOGO HERE -->
-        <h1 id="logo">Strawberry CMS</h1>
+        <h1 id="logo" style="color: #fff;">Strawberry CMS</h1>
         <!-- END LOGO PLACEHOLDER -->
 
         <!-- Note: The activity badge color changes when clicked and resets the number to 0
@@ -129,9 +129,9 @@
     <!-- Note: This width of the aside area can be adjusted through LESS variables -->
     <aside id="left-panel">
 
-      <!-- User info -->
+      <!-- User info 
       <div class="login-info">
-        <span> <!-- User image size is adjusted inside CSS, it should stay as it --> <!--<img src="img/avatars/sunny.png" alt="me" class="online" />--> 
+        <span>  User image size is adjusted inside CSS, it should stay as it  <img src="img/avatars/sunny.png" alt="me" class="online" /> 
           <a>{{ Auth::user()->user }}</a>
         </span>
       </div>
@@ -175,17 +175,15 @@
     <div id="main" role="main">
 
       <!-- RIBBON -->
-      <div id="ribbon">
+      <!-- <div id="ribbon">
 
         <span class="ribbon-button-alignment"> <span id="refresh" class="btn btn-ribbon" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true"><i class="fa fa-refresh"></i></span> </span>
 
-        <!-- breadcrumb -->
-        <!--<ol class="breadcrumb">
+        <ol class="breadcrumb">
           <li>Home</li><li>Dashboard</li>
-        </ol>-->
-        <!-- end breadcrumb -->
+        </ol>
 
-        <!-- You can also add more buttons to the
+        You can also add more buttons to the
         ribbon for further usability
 
         Example below:
@@ -194,9 +192,9 @@
         <span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
         <span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
         <span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
-        </span> -->
+        </span>
 
-      </div>
+      </div> -->
       <!-- END RIBBON -->
 
       <!-- MAIN CONTENT -->

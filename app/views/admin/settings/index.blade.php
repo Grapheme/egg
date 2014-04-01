@@ -72,17 +72,23 @@
 	</tr>
 
 </table>
-<table style="margin-top:55px;">
+<div class="smart-form">
+<table style="margin-top:55px; width: 400px;" class="table table-bordered table-striped">
 
 	@foreach(admin::menuArray() as $url => $option)
 
 	<tr>
-		<td><input @if(!modules::where('url', $url)->exists()) checked="checked" @endif type="checkbox" class="module-checkbox" data-url="{{$url}}"></td>
 		<td>{{$option[0]}}</td>
+		<td style="width: 50px;">
+			<label class="toggle">
+    			<input @if(!modules::where('url', $url)->exists()) checked="checked" @endif type="checkbox" class="module-checkbox" data-url="{{$url}}">
+                <i data-swchon-text="ON" data-swchoff-text="OFF"></i> 
+            </label>
+		</td>
 	</tr>
 
 	@endforeach
 
 </table>
-
+</div>
 @stop
