@@ -2,16 +2,11 @@
 
 @section('plugins')
 
-	<script src="{{slink::path('admin_template/js/plugin/summernote/summernote.js')}}"></script>
+	<script src="{{slink::path('system/js/vendor/redactor.js')}}"></script>
+	<script src="{{slink::path('system/js/admin/redactor-config.js')}}"></script>
 	<script src="{{slink::path('system/js/admin/ajax_submit.js')}}"></script>
 	<script>
-	
-		$('.editor').summernote({
-                height: 250
-        });
-
-        $('form').ajax_submit('{{slink::to('admin/news/')}}');
-
+		$('form').ajax_submit('{{slink::to('admin/news/')}}');
 	</script>
 
 @stop
@@ -58,13 +53,13 @@
 	    <section>
 	        <label class="label">Preview</label>
 	        <label class="input">
-	            <div class="editor" name="preview"></div>
+	            <textarea class="editor" rows="6" name="preview"></textarea>
 	        </label>
 	    </section>
 	    <section>
 	        <label class="label">Text</label>
 	        <label class="input">
-	            <div class="editor" name="content"></div>
+	            <textarea class="editor" rows="10" name="content"></textarea>
 	        </label>
 	    </section>
 	    <section>

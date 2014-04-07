@@ -1,8 +1,9 @@
-/bootstrap/compiled.php
-/vendor
-/downloads
 /public/uploads
+/vendor
 composer.phar
 composer.lock
 .DS_Store
+
+.htaccess
+moneta.clpprj
 Thumbs.db

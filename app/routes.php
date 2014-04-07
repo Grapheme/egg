@@ -14,9 +14,11 @@
 //$locale = slang::get();
 $locale = null;
 
+Route::get('redactor/get-uploaded-images', 'DownloadsController@redactorUploadedImages');
+Route::post('redactor/upload','DownloadsController@redactorUploadImage');
+
 Route::group(array('before' => 'admin_panel', 'prefix' => 'admin'), function()
 {
-
     Route::get('/', 'AdminController@mainPage');
     Route::controller('users', 'UsersController');
 	Route::controller('pages', 'PagesController');
@@ -27,7 +29,6 @@ Route::group(array('before' => 'admin_panel', 'prefix' => 'admin'), function()
 	Route::controller('temps', 'TempsController');
 	Route::controller('groups', 'GroupsController');
 	Route::controller('downloads', 'DownloadsController');
-
 });
 
 Route::group(array('prefix' => $locale), function()

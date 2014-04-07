@@ -24,7 +24,7 @@
 				<span class="icon-bar"></span>
 				</button>
 			@if(Request::is('/'))
-				<a href="javascript:void(0)" class="navbar-brand">Moneta.ru</a>
+				<a href="javascript:void(0)" class="navbar-brand">Monety.pro</a>
 			@else
 				<a href="{{url('/');}}" class="navbar-brand">Moneta.ru</a>
 			@endif

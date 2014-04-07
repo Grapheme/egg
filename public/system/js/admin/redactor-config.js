@@ -28,8 +28,8 @@ ImperaviRedactor.config = {
 	//buttonsCustom: ImperaviRedactor.buttonsCustom,
 	lang: 'ru',
 	plugins: ['fontsize','fullscreen'],
-	//imageUpload: ImperaviRedactor.getBaseURL('redactor/upload'),
-	//imageGetJson: ImperaviRedactor.getBaseURL('redactor/get-uploaded-images'),
+	imageUpload: ImperaviRedactor.getBaseURL('redactor/upload'),
+	imageGetJson: ImperaviRedactor.getBaseURL('redactor/get-uploaded-images'),
 	imageUploadErrorCallback: function(response){alert(response.error);},
 	changeCallback: function(){},
 	blurCallback: function(e){
@@ -189,5 +189,5 @@ $(function(){
 		fullscreen: 'Во весь экран',deleted: 'Зачеркнутый',anchor: 'Якорь',link_new_tab: 'Открывать в новой вкладке',underline: 'Подчеркнутый',
 		alignment: 'Выравнивание',filename: 'Название (необязательно)',edit: 'Ред.'
 	};
-	$(".redactor").redactor(ImperaviRedactor.config);
+	$(".editor").redactor(ImperaviRedactor.config);
 });

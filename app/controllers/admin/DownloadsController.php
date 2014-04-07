@@ -2,21 +2,7 @@
 
 class DownloadsController extends BaseController {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Default Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| You may wish to use controllers instead of, or in addition to, Closure
-	| based routes. That's great! Here is an example controller method to
-	| get you started. To route to this controller, just add the route:
-	|
-	|	Route::get('/', 'HomeController@showWelcome');
-	|
-	*/
-
-	public function getIndex()
-	{
+	public function getIndex(){
 		$dir = public_path().Config::get('egg.upload_dir')."/";
 
 		if (!file_exists($dir) or !is_dir($dir)) {
@@ -47,8 +33,7 @@ class DownloadsController extends BaseController {
 		return View::make('admin.downloads.index', compact('dirs', 'files', 'back_link'));
 	}
 
-	public function postUpload()
-	{
+	public function postUpload(){
 		$file = Input::file('file');
 		$path = Input::get('path');
  
@@ -63,5 +48,48 @@ class DownloadsController extends BaseController {
 		   return Response::json('error', 400);
 		}
 	}
-
+	
+	public function redactorUploadedImages(){
+		
+		$uploadPath = public_path('uploads');
+		if(!file_exists($uploadPath)):
+			echo json_encode(array());
+			exit;
+		endif;
+		$fullList[0] = $fileList = array('thumb'=>'','image'=>'','title'=>'Изображение','folder'=>'Миниатюры');
+		if($listDir = scandir($uploadPath)):
+			$index = 0;
+			foreach($listDir as $number => $file):
+				if(is_file($uploadPath.'/'.$file)):
+					$thumbnail = $uploadPath.'/thumbnail/thumb_'.$file;
+					if(file_exists($thumbnail) && is_file($thumbnail)):
+						$fileList['thumb'] = url('uploads/thumbnail/thumb_'.$file);
+					endif;
+					$fileList['image'] = url('uploads/'.$file);
+					$fullList[$index] = $fileList;
+					$index++;
+				endif;
+			endforeach;
+		endif;
+		echo json_encode($fullList);
+	}
+	
+	public function redactorUploadImage(){
+		
+		
+		$uploadPath = public_path('uploads');
+		if(Input::hasFile('file')):
+			$fileName = str_random(16).'.'.Input::file('file')->getClientOriginalExtension();
+			if(!File::exists($uploadPath.'/thumbnail')):
+				File::makeDirectory($uploadPath.'/thumbnail',0777,TRUE);
+			endif;
+			ImageManipulation::make(Input::file('file')->getRealPath())->resize(100,100,TRUE)->save($uploadPath.'/thumbnail/thumb_'.$fileName);
+			ImageManipulation::make(Input::file('file')->getRealPath())->resize(300,300,TRUE)->save($uploadPath.'/'.$fileName);
+			$file = array('filelink'=>url('uploads/'.$fileName));
+			echo stripslashes(json_encode($file));
+		else:
+			exit('Нет файла для загрузки!');
+		endif;
+	}
+	
 }

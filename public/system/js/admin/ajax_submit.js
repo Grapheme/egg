@@ -48,10 +48,6 @@ function formSubmitOn($_form, $redirect)
 {
 	var $data = $_form.serialize();
 
-	$('.editor').each(function(){
-		$data += "&" + $(this).attr('name') + "=" + $(this).code();
-	});
-	
 	$.ajax({
 		url: $_form.attr('action'),
 		data: $data,
